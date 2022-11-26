@@ -1,5 +1,7 @@
 # python-companycam
 
+![Test](https://github.com/ely-as/python-companycam/workflows/Test/badge.svg)
+
 ## Usage
 
 ### Installation
