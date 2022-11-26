@@ -13,7 +13,7 @@ python -m pip install git+https://github.com/ely-as/python-companycam
 ### Installation
 
 ```sh
-git clone git+https://github.com/ely-as/python-companycam
+git clone --recurse-submodules git+https://github.com/ely-as/python-companycam
 cd python-companycam
 python -m pip install -e .
 ```
@@ -33,6 +33,12 @@ tox
 Run a specific tox environment:
 ```sh
 tox -e flake8
+```
+
+### Update Git submodules
+
+```sh
+git submodule foreach git pull
 ```
 
 ## Resources

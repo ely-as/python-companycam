@@ -1,0 +1,3 @@
+[submodule "openapi-spec"]
+	path = openapi-spec
+	url = https://github.com/CompanyCam/openapi-spec
