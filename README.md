@@ -47,6 +47,10 @@ git submodule foreach git pull
 
 - [CompanyCam Docs](https://docs.companycam.com/docs)
 
+## Dependencies
+
+- [pydantic](https://pydantic-docs.helpmanual.io/) (MIT license)
+
 ## License
 
 [MIT](LICENSE).
