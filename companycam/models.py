@@ -56,11 +56,6 @@ class ImageURI(BaseModel):
     uri: str
 
 
-class ProjectIntegration(BaseModel):
-    type: str
-    relation_id: str
-
-
 class ProjectCollaborator(BaseModel):
     id: Optional[str]
     company_id: Optional[str]
@@ -112,6 +107,11 @@ class ProjectInvitation(BaseModel):
     creator_id: Optional[str]
     created_at: Optional[int]
     updated_at: Optional[int]
+
+
+class ProjectIntegration(BaseModel):
+    type: str
+    relation_id: str
 
 
 class Tag(BaseModel):
