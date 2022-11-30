@@ -1,7 +1,7 @@
 from inspect import getmembers, isclass
 from typing import Dict, List, Type
 
-from companycam import models
+from companycam.v2 import models
 from pydantic import BaseModel
 import pytest
 
