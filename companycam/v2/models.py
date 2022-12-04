@@ -2,7 +2,6 @@ from typing import List, Literal, Optional
 
 from pydantic import BaseModel
 
-
 # Components which don't reference other components, alphabetical
 
 

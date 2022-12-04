@@ -1,9 +1,10 @@
 from inspect import getmembers, isclass
 from typing import Dict, List, Type
 
-from companycam.v2 import models
-from pydantic import BaseModel
 import pytest
+from pydantic import BaseModel
+
+from companycam.v2 import models
 
 from .openapi import load_openapi_spec
 

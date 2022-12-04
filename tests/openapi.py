@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Dict
-import yaml
 
+import yaml
 
 PATH_TO_OPENAPI_YAML: Path = Path(__file__).parent.parent / "openapi-spec/openapi.yaml"
 
