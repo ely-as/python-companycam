@@ -2,6 +2,8 @@ from typing import List, Literal, Optional
 
 from pydantic import BaseModel
 
+from companycam.models import ModelWithRequiredID
+
 # Components which don't reference other components, alphabetical
 
 
@@ -14,8 +16,7 @@ class Address(BaseModel):
     country: Optional[str]
 
 
-class Comment(BaseModel):
-    id: str
+class Comment(ModelWithRequiredID):
     creator_id: Optional[str]
     creator_type: Optional[str]
     creator_name: Optional[str]
@@ -32,8 +33,7 @@ class Coordinate(BaseModel):
     lon: float
 
 
-class Document(BaseModel):
-    id: str
+class Document(ModelWithRequiredID):
     creator_id: Optional[str]
     creator_type: Optional[str]
     creator_name: Optional[str]
@@ -113,8 +113,7 @@ class ProjectIntegration(BaseModel):
     relation_id: str
 
 
-class Tag(BaseModel):
-    id: str
+class Tag(ModelWithRequiredID):
     company_id: Optional[str]
     display_value: Optional[str]
     value: Optional[str]
@@ -122,8 +121,7 @@ class Tag(BaseModel):
     updated_at: Optional[int]
 
 
-class Webhook(BaseModel):
-    id: str
+class Webhook(ModelWithRequiredID):
     company_id: Optional[str]
     url: Optional[str]
     scopes: Optional[List[str]]
@@ -136,8 +134,7 @@ class Webhook(BaseModel):
 # Components which reference other components, alphabetical
 
 
-class User(BaseModel):
-    id: str
+class User(ModelWithRequiredID):
     company_id: Optional[str]
     email_address: Optional[str]
     status: Optional[Literal["active", "deleted"]]
@@ -153,16 +150,14 @@ class User(BaseModel):
 # Rest of the components which reference other components, alphabetical
 
 
-class Company(BaseModel):
-    id: str
+class Company(ModelWithRequiredID):
     name: str
     status: Optional[Literal["active", "cancelled", "deleted"]]
     address: Optional[Address]
     logo: Optional[List[ImageURI]]
 
 
-class Group(BaseModel):
-    id: str
+class Group(ModelWithRequiredID):
     company_id: Optional[str]
     name: Optional[str]
     users: Optional[List[User]]
@@ -172,8 +167,7 @@ class Group(BaseModel):
     updated_at: Optional[int]
 
 
-class Photo(BaseModel):
-    id: str
+class Photo(ModelWithRequiredID):
     company_id: Optional[str]
     creator_id: Optional[str]
     creator_type: Optional[str]
@@ -192,8 +186,7 @@ class Photo(BaseModel):
     updated_at: Optional[int]
 
 
-class Project(BaseModel):
-    id: str
+class Project(ModelWithRequiredID):
     company_id: Optional[str]
     creator_id: Optional[str]
     creator_type: Optional[str]

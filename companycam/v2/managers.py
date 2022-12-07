@@ -1,0 +1,264 @@
+from __future__ import annotations
+
+from typing import List, Optional
+
+from companycam.manager import BaseManager, delete, get, post, put, request
+from companycam.types import QueryParamTypes
+from companycam.v2.models import (
+    Comment,
+    Company,
+    Document,
+    Group,
+    Photo,
+    Project,
+    ProjectCollaborator,
+    ProjectInvitation,
+    Tag,
+    User,
+    Webhook,
+)
+
+QueryTypes = Optional[QueryParamTypes]
+
+
+class CompanyManager(BaseManager):
+    @get("/company", Company)
+    def retrieve(self) -> Company:
+        return request()
+
+
+class UsersManager(BaseManager):
+    # this is defined here, rather than in `pydantic.BaseModel.Config`, and applied
+    # manually so it's closer to the path definitions and not invoked in any non-API
+    # usage of `BaseModel.dict()`
+    include = {"first_name", "last_name", "email_address", "phone_number", "password"}
+
+    @get("/users/current", User)
+    def retrieve_current(self) -> User:
+        return request()
+
+    @get("/users", List[User])
+    def list(self, query: QueryTypes = None) -> List[User]:
+        return request(params=query)
+
+    @post("/users", User)
+    def create(self, user: User) -> User:
+        return request(json=user.dict(include=self.include))
+
+    @get("/users/{user}", User)
+    def retrieve(self, user: User | str) -> User:
+        return request()
+
+    @put("/users/{user}", User)
+    def update(self, user: User) -> User:
+        return request(json=user.dict(include=self.include))
+
+    @delete("/users/{user}", bool)
+    def delete(self, user: User | str) -> bool:
+        return request()
+
+
+class ProjectsManager(BaseManager):
+    include = {"name", "address", "coordinates", "geofence", "primary_contact"}
+
+    @get("/projects", List[Project])
+    def list(self, query: QueryTypes = None) -> List[Project]:
+        return request(params=query)
+
+    @post("/projects", Project)
+    def create(self, project: Project) -> Project:
+        return request(json=project.dict(include=self.include))
+
+    @get("/projects/{project}", Project)
+    def retrieve(self, project: Project | str) -> Project:
+        return request()
+
+    @put("/projects/{project}", Project)
+    def update(self, project: Project) -> Project:
+        include = self.include.copy()
+        include.remove("primary_contact")
+        return request(json=project.dict(include=include))
+
+    @put("/projects/{project}/restore", Project)
+    def restore(self, project: Project | str) -> Project:
+        return request()
+
+    @get("/projects/{project}/photos", List[Photo])
+    def list_photos(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[Photo]:
+        return request()
+
+    @post("/projects/{project}/photos", Photo)
+    def create_photo(self, project: Project | str, photo: Photo) -> Photo:
+        return request(
+            json={"photo": photo.dict(include={"coordinates", "uri", "captured_at"})}
+        )
+
+    @get("/projects/{project}/assigned_users", List[User])
+    def list_assigned_users(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[User]:
+        return request(params=query)
+
+    @put("/projects/{project}/assigned_users/{user}", User)
+    def assign_user_to_project(self, project: Project | str, user: User | str) -> User:
+        return request()
+
+    @delete("/projects/{project}/assigned_users/{user}", bool)
+    def remove_user_from_project(
+        self, project: Project | str, user: User | str
+    ) -> bool:
+        return request()
+
+    @get("/projects/{project}/collaborators", List[ProjectCollaborator])
+    def list_collaborators(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[ProjectCollaborator]:
+        return request(params=query)
+
+    @get("/projects/{project}/invitations", List[ProjectInvitation])
+    def list_invitations(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[ProjectInvitation]:
+        return request(params=query)
+
+    @post("/projects/{project}/invitations", ProjectInvitation)
+    def create_invitation(self, project: Project | str) -> ProjectInvitation:
+        return request()
+
+    @get("/projects/{project}/labels", List[Tag])
+    def list_labels(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[Tag]:
+        return request(params=query)
+
+    @post("/projects/{project}/labels", Tag)
+    def create_labels(self, project: Project | str, *labels: str) -> Tag:
+        return request(json={"project": {"labels": [*labels]}})
+
+    @delete("/projects/{project}/labels/{label}", bool)
+    def delete_label(self, project: Project | str, label: Tag | str) -> bool:
+        return request()
+
+    @get("/projects/{project}/documents", List[Document])
+    def list_documents(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[Document]:
+        return request(params=query)
+
+    @post("/projects/{project}/documents", Document)
+    def create_document(self, project: Project | str, document: Document) -> Document:
+        return request(json=document.dict(include={"name", "attachment"}))
+
+    @get("/projects/{project}/comments", List[Comment])
+    def list_comments(
+        self, project: Project | str, query: QueryTypes = None
+    ) -> List[Comment]:
+        return request(params=query)
+
+    @post("/projects/{project}/comments", Comment)
+    def create_comment(self, project: Project | str, comment: Comment) -> Comment:
+        return request(json=comment.dict(include={"content"}))
+
+
+class PhotosManager(BaseManager):
+    @get("/photos", List[Photo])
+    def list(self, query: QueryTypes = None) -> List[Photo]:
+        return request(params=query)
+
+    @get("/photos/{photo}", Photo)
+    def retrieve(self, photo: Photo | str) -> Photo:
+        return request()
+
+    @put("/photos/{photo}", Photo)
+    def update(self, photo: Photo) -> Photo:
+        return request(json=photo.dict(include={"internal"}))
+
+    @delete("/photos/{photo}", bool)
+    def delete(self, photo: Photo | str) -> bool:
+        return request()
+
+    @get("/photos/{photo}/tags", List[Tag])
+    def list_tags(self, photo: Photo | str, query: QueryTypes = None) -> List[Tag]:
+        return request(params=query)
+
+    @post("/photos/{photo}/tags", Tag)
+    def create_tags(self, photo: Photo | str, *tags: str) -> Tag:
+        return request(json={"photo": {"tags": [*tags]}})
+
+    @get("/photos/{photo}/comments", List[Comment])
+    def list_comments(
+        self, photo: Photo | str, query: QueryTypes = None
+    ) -> List[Comment]:
+        return request(params=query)
+
+    @post("/photos/{photo}/comments", Comment)
+    def create_comment(self, photo: Photo | str, comment: Comment) -> Comment:
+        return request(json=comment.dict(include={"content"}))
+
+
+class TagsManager(BaseManager):
+    @get("/tags", List[Tag])
+    def list(self, query: QueryTypes = None) -> List[Tag]:
+        return request(params=query)
+
+    @post("/tags", Tag)
+    def create(self, tag: Tag) -> Tag:
+        return request(json=tag.dict(include={"display_value"}))
+
+    @get("/tags/{tag}", Tag)
+    def retrieve(self, tag: Tag | str) -> Tag:
+        return request()
+
+    @put("/tags/{tag}", Tag)
+    def update(self, tag: Tag) -> Tag:
+        return request(json=tag.dict(include={"display_value"}))
+
+    @delete("/tags/{tag}", bool)
+    def delete(self, tag: Tag | str) -> bool:
+        return request()
+
+
+class GroupsManager(BaseManager):
+    @get("/groups", List[Group])
+    def list(self, query: QueryTypes = None) -> List[Group]:
+        return request(params=query)
+
+    @post("/groups", Group)
+    def create(self, group: Group) -> Group:
+        return request(json=group.dict(include={"name", "users"}))
+
+    @get("/groups/{group}", Group)
+    def retrieve(self, group: Group | str) -> Group:
+        return request()
+
+    @put("/groups/{group}", Group)
+    def update(self, group: Group) -> Group:
+        return request(json=group.dict(include={"name", "users"}))
+
+    @delete("/groups/{group}", bool)
+    def delete(self, group: Group | str) -> bool:
+        return request()
+
+
+class WebhooksManager(BaseManager):
+    @get("/webhooks", List[Webhook])
+    def list(self, query: QueryTypes = None) -> List[Webhook]:
+        return request(params=query)
+
+    @post("/webhooks", Webhook)
+    def create(self, webhook: Webhook) -> Webhook:
+        return request(json=webhook.dict(include={"url", "scopes", "enabled", "token"}))
+
+    @get("/webhooks/{webhook}", Webhook)
+    def retrieve(self, webhook: Webhook | str) -> Webhook:
+        return request()
+
+    @put("/webhooks/{webhook}", Webhook)
+    def update(self, webhook: Webhook) -> Webhook:
+        return request(json=webhook.dict(include={"url", "scopes", "enabled", "token"}))
+
+    @delete("/webhooks/{webhook}", bool)
+    def delete(self, webhook: Webhook | str) -> bool:
+        return request()

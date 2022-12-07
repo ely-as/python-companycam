@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from companycam.v2 import models
 
-from .openapi import load_openapi_spec
+from .openapi import get_name_from_ref, load_openapi_spec
 
 ALL_MODELS = dict(
     getmembers(models, lambda m: isclass(m) and m.__module__ == models.__name__)
@@ -36,11 +36,6 @@ def get_model_property_fields_from_property_name(
         )
 
 
-def get_name_from_ref(uri: str) -> str:
-    """Get component name from a Reference Object $ref field."""
-    return uri.split("/")[:-1][0]
-
-
 @pytest.mark.parametrize("name,model", ALL_MODELS.items())
 def test_pydantic_model_name_matches_an_OpenAPI_component(
     name: str, model: Type[BaseModel]
@@ -60,11 +55,14 @@ def test_OpenAPI_component_matches_a_pydantic_model(component_name: str):
         for name, fields in OPENAPI_SPEC["components"]["schemas"].items()
     ],
 )
-def test_required_OpenAPI_properties_are_required_in_pydantic_model(
+def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_id(
     component_name: str, required: List[str]
 ):
     model = get_model_from_component_name(component_name)
-    assert required == model.schema().get("required", [])
+    model_required = model.schema().get("required", [])
+    if "id" in required:
+        required.remove("id")
+    assert required == model_required
 
 
 @pytest.mark.parametrize(
