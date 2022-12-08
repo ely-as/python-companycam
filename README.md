@@ -11,9 +11,9 @@ python -m pip install git+https://github.com/ely-as/python-companycam
 ## Usage
 
 ```py
-from companycam import API
+import companycam
 
-api = API(token='YOUR_TOKEN_HERE')
+api = companycam.API(token='YOUR_TOKEN_HERE')
 api.projects.list()
 ```
 
