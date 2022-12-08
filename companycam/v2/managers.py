@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from companycam.manager import BaseManager, delete, get, post, put, request
+from companycam.manager import BaseManager
+from companycam.manager import delete as delete_
+from companycam.manager import get, post, put, request
 from companycam.types import QueryParamTypes
 from companycam.v2.models import (
     Comment,
@@ -53,7 +55,7 @@ class UsersManager(BaseManager):
     def update(self, user: User) -> User:
         return request(json=user.dict(include=self.include))
 
-    @delete("/users/{user}", bool)
+    @delete_("/users/{user}", bool)
     def delete(self, user: User | str) -> bool:
         return request()
 
@@ -78,6 +80,10 @@ class ProjectsManager(BaseManager):
         include = self.include.copy()
         include.remove("primary_contact")
         return request(json=project.dict(include=include))
+
+    @delete_("/projects/{project}", bool)
+    def delete(self, project: Project | str) -> bool:
+        return request()
 
     @put("/projects/{project}/restore", Project)
     def restore(self, project: Project | str) -> Project:
@@ -105,7 +111,7 @@ class ProjectsManager(BaseManager):
     def assign_user_to_project(self, project: Project | str, user: User | str) -> User:
         return request()
 
-    @delete("/projects/{project}/assigned_users/{user}", bool)
+    @delete_("/projects/{project}/assigned_users/{user}", bool)
     def remove_user_from_project(
         self, project: Project | str, user: User | str
     ) -> bool:
@@ -137,7 +143,7 @@ class ProjectsManager(BaseManager):
     def create_labels(self, project: Project | str, *labels: str) -> Tag:
         return request(json={"project": {"labels": [*labels]}})
 
-    @delete("/projects/{project}/labels/{label}", bool)
+    @delete_("/projects/{project}/labels/{label}", bool)
     def delete_label(self, project: Project | str, label: Tag | str) -> bool:
         return request()
 
@@ -175,7 +181,7 @@ class PhotosManager(BaseManager):
     def update(self, photo: Photo) -> Photo:
         return request(json=photo.dict(include={"internal"}))
 
-    @delete("/photos/{photo}", bool)
+    @delete_("/photos/{photo}", bool)
     def delete(self, photo: Photo | str) -> bool:
         return request()
 
@@ -215,7 +221,7 @@ class TagsManager(BaseManager):
     def update(self, tag: Tag) -> Tag:
         return request(json=tag.dict(include={"display_value"}))
 
-    @delete("/tags/{tag}", bool)
+    @delete_("/tags/{tag}", bool)
     def delete(self, tag: Tag | str) -> bool:
         return request()
 
@@ -237,7 +243,7 @@ class GroupsManager(BaseManager):
     def update(self, group: Group) -> Group:
         return request(json=group.dict(include={"name", "users"}))
 
-    @delete("/groups/{group}", bool)
+    @delete_("/groups/{group}", bool)
     def delete(self, group: Group | str) -> bool:
         return request()
 
@@ -259,6 +265,6 @@ class WebhooksManager(BaseManager):
     def update(self, webhook: Webhook) -> Webhook:
         return request(json=webhook.dict(include={"url", "scopes", "enabled", "token"}))
 
-    @delete("/webhooks/{webhook}", bool)
+    @delete_("/webhooks/{webhook}", bool)
     def delete(self, webhook: Webhook | str) -> bool:
         return request()

@@ -51,6 +51,12 @@ def test_all_manager_paths_exist_in_OpenAPI_spec(path_info: typing.Dict) -> None
     assert path_info["method"] in OPENAPI_SPEC_PATHS[url]
 
 
+def test_managers_have_same_number_of_paths_as_OpenAPI_spec() -> None:
+    no_manager_paths = sum(1 for p in yield_paths_from_managers(*ALL_MANAGERS.values()))
+    no_spec_paths = sum(len(v.keys()) for k, v in OPENAPI_SPEC_PATHS.items())
+    assert no_manager_paths == no_spec_paths
+
+
 @pytest.mark.parametrize("path_info", yield_paths_from_managers(*ALL_MANAGERS.values()))
 def test_all_manager_paths_return_same_type_as_in_OpenAPI_spec(  # noqa: C901 (will refactor)
     path_info: typing.Dict,
