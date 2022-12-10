@@ -15,6 +15,7 @@ from companycam.v2.models import (
     Project,
     ProjectCollaborator,
     ProjectInvitation,
+    ProjectNotepad,
     Tag,
     User,
     Webhook,
@@ -116,6 +117,10 @@ class ProjectsManager(BaseManager):
         self, project: Project | str, user: User | str
     ) -> bool:
         return request()
+
+    @put("/projects/{project}/notepad", ProjectNotepad)
+    def update_notepad(self, project: Project) -> ProjectNotepad:
+        return request(json=project.dict(include={'notepad'}))
 
     @get("/projects/{project}/collaborators", List[ProjectCollaborator])
     def list_collaborators(

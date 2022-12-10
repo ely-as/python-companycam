@@ -113,6 +113,10 @@ class ProjectIntegration(BaseModel):
     relation_id: str
 
 
+class ProjectNotepad(BaseModel):
+    notepad: str
+
+
 class Tag(ModelWithRequiredID):
     company_id: Optional[str]
     display_value: Optional[str]
@@ -203,5 +207,6 @@ class Project(ModelWithRequiredID):
     public: Optional[bool]
     geofence: Optional[List[Coordinate]]
     primary_contact: Optional[ProjectContactResponse]
+    notepad: Optional[str]
     created_at: Optional[int]
     updated_at: Optional[int]
