@@ -7,7 +7,7 @@
 ## Installation
 
 ```sh
-python -m pip install git+https://github.com/ely-as/python-companycam
+python -m pip install companycam-unofficial
 ```
 
 ## Usage
