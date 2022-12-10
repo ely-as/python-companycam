@@ -11,10 +11,16 @@ python -m pip install git+https://github.com/ely-as/python-companycam
 ## Usage
 
 ```py
-import companycam
+>>> import companycam
+>>> from companycam.v2 import models
 
-api = companycam.API(token='YOUR_TOKEN_HERE')
-api.projects.list()
+>>> api = companycam.API(token="YOUR_TOKEN_HERE")
+>>> api.projects.list()
+[Project(id='12345678', ...)]
+
+>>> project = models.Project(name="My new project")
+>>> api.projects.create(project)
+Project(id='23456789', name='My new project', ...)
 ```
 
 ## Development
