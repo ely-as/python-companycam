@@ -1,6 +1,8 @@
 # python-companycam
 
 ![Test](https://github.com/ely-as/python-companycam/workflows/Test/badge.svg)
+![Python](https://img.shields.io/pypi/pyversions/companycam-unofficial)
+![License](https://img.shields.io/pypi/l/companycam-unofficial)
 
 ## Installation
 
