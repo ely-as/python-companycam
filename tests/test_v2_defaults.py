@@ -1,14 +1,14 @@
 from companycam.v2 import defaults
 
-from .openapi import load_openapi_spec
+from . import utils
 
-OPENAPI_SPEC = load_openapi_spec()
+OPENAPI = utils.OpenAPI()
 
 
 def test_SERVER_URL_matches_spec() -> None:
-    assert OPENAPI_SPEC["servers"][0]["url"] == defaults.SERVER_URL
+    assert OPENAPI.spec["servers"][0]["url"] == defaults.SERVER_URL
 
 
 def test_spec_contains_only_one_server() -> None:
     # the spec supports a list of servers, but we assume there's only one, so test this assumption
-    assert len(OPENAPI_SPEC["servers"]) == 1
+    assert len(OPENAPI.spec["servers"]) == 1

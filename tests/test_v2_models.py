@@ -1,23 +1,22 @@
-from inspect import getmembers, isclass
 from typing import Dict, List, Type
 
 import pytest
 from pydantic import BaseModel
 
-from companycam.v2 import models
+import companycam
 
-from .openapi import get_name_from_ref, load_openapi_spec
+from . import utils
 
-ALL_MODELS = dict(
-    getmembers(models, lambda m: isclass(m) and m.__module__ == models.__name__)
+CLIENT_V2 = utils.ClientTestHelper(
+    managers=companycam.v2.managers, models=companycam.v2.models
 )
-OPENAPI_SPEC = load_openapi_spec()
+OPENAPI = utils.OpenAPI()
 
 
 def get_model_from_component_name(component_name: str) -> Type[BaseModel]:
     """Get pydantic model from the name of an OpenAPI Component or skip test if not found."""
     try:
-        return ALL_MODELS[component_name]
+        return CLIENT_V2.models[component_name]
     except KeyError:
         return pytest.skip(
             f"Pydantic model with name '{component_name}' not found, skipping because error is covered by a different test"
@@ -36,23 +35,23 @@ def get_model_property_fields_from_property_name(
         )
 
 
-@pytest.mark.parametrize("name,model", ALL_MODELS.items())
+@pytest.mark.parametrize("name,model", CLIENT_V2.models.items())
 def test_pydantic_model_name_matches_an_OpenAPI_component(
     name: str, model: Type[BaseModel]
 ) -> None:
-    assert model.schema()["title"] in OPENAPI_SPEC["components"]["schemas"]
+    assert model.schema()["title"] in OPENAPI.component_schemas
 
 
-@pytest.mark.parametrize("component_name", OPENAPI_SPEC["components"]["schemas"].keys())
+@pytest.mark.parametrize("component_name", OPENAPI.component_schemas)
 def test_OpenAPI_component_matches_a_pydantic_model(component_name: str) -> None:
-    assert component_name in ALL_MODELS
+    assert component_name in CLIENT_V2.models
 
 
 @pytest.mark.parametrize(
     "component_name,required",
     [
         (name, fields.get("required", []))
-        for name, fields in OPENAPI_SPEC["components"]["schemas"].items()
+        for name, fields in OPENAPI.component_schemas.items()
     ],
 )
 def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_id(
@@ -69,7 +68,7 @@ def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_i
     "component_name,property_names",
     [
         (name, [p for p in fields["properties"]])
-        for name, fields in OPENAPI_SPEC["components"]["schemas"].items()
+        for name, fields in OPENAPI.component_schemas.items()
     ],
 )
 def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
@@ -83,7 +82,7 @@ def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
     "component_name,property_name,property_fields",
     [
         (name, property_name, property_fields)
-        for name, fields in OPENAPI_SPEC["components"]["schemas"].items()
+        for name, fields in OPENAPI.component_schemas.items()
         for property_name, property_fields in fields["properties"].items()
     ],
 )
@@ -95,9 +94,9 @@ def test_pydantic_model_fields_have_same_type_as_OpenAPI_component_properties(
         model, property_name
     )
     if "$ref" in model_property_fields:
-        assert get_name_from_ref(property_fields["$ref"]) or get_name_from_ref(
-            model_property_fields["$ref"]
-        )
+        assert utils.get_name_from_ref(
+            property_fields["$ref"]
+        ) or utils.get_name_from_ref(model_property_fields["$ref"])
     elif "type" in model_property_fields:
         assert property_fields["type"] == model_property_fields["type"]
     else:
@@ -111,7 +110,7 @@ def test_pydantic_model_fields_have_same_type_as_OpenAPI_component_properties(
     "component_name,property_name,enum",
     [
         (name, property_name, property_fields["enum"])
-        for name, fields in OPENAPI_SPEC["components"]["schemas"].items()
+        for name, fields in OPENAPI.component_schemas.items()
         for property_name, property_fields in fields["properties"].items()
         if "enum" in property_fields
     ],
