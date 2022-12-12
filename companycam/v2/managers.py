@@ -120,7 +120,7 @@ class ProjectsManager(BaseManager):
 
     @put("/projects/{project}/notepad", ProjectNotepad)
     def update_notepad(self, project: Project) -> ProjectNotepad:
-        return request(json=project.dict(include={'notepad'}))
+        return request(json=project.dict(include={"notepad"}))
 
     @get("/projects/{project}/collaborators", List[ProjectCollaborator])
     def list_collaborators(
