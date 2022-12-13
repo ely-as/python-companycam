@@ -83,12 +83,12 @@ class BaseRequest(object):
 
         @functools.wraps(decorated_method)
         def wrapper(obj, *args, **kwargs):
-            # Convert any args to kwargs
-            kwargs = inspect.getcallargs(decorated_method, obj, *args, **kwargs)
             # Call method
-            request_dict = decorated_method(**kwargs)
+            request_dict = decorated_method(obj, *args, **kwargs)
             if "url" not in request_dict:
-                request_dict["url"] = format_url(self.url, kwargs)
+                # Convert any args to kwargs for format_url
+                url_kwargs = inspect.getcallargs(decorated_method, obj, *args, **kwargs)
+                request_dict["url"] = format_url(self.url, url_kwargs)
             # Send request
             with obj.client.make_client() as client:
                 request = client.build_request(self.method, **request_dict)
