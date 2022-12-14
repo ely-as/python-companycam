@@ -1,0 +1,420 @@
+{
+    "/company": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"name\": \"Psych\",\n \"status\": \"active\",\n \"address\": {\n  \"street_address_1\": \"808 P St\",\n  \"city\": \"Lincoln\",\n  \"state\": \"NE\",\n  \"postal_code\": \"68508\",\n  \"country\": \"US\"\n },\n \"logo\": [\n  {\n   \"type\": \"Duis culpa nulla cillum in\",\n   \"uri\": \"fugiat proident ullamco\"\n  },\n  {\n   \"type\": \"nostrud ut\",\n   \"uri\": \"cupidatat ipsu\"\n  }\n ]\n}"
+        }
+    },
+    "/users/current": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"company_id\": \"8292212\",\n \"email_address\": \"shawn@psych.co\",\n \"status\": \"active\",\n \"first_name\": \"Shawn\",\n \"last_name\": \"Spencer\",\n \"profile_image\": [\n  {\n   \"type\": \"adipisicing non\",\n   \"uri\": \"cillum sit do\"\n  },\n  {\n   \"type\": \"fugiat laborum mollit\",\n   \"uri\": \"quis et\"\n  }\n ],\n \"phone_number\": \"4025551212\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737206,\n \"user_url\": \"https://app.companycam.com/users/1234\"\n}"
+        }
+    },
+    "/users": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"2789583992\",\n  \"company_id\": \"8292212\",\n  \"email_address\": \"shawn@psych.co\",\n  \"status\": \"active\",\n  \"first_name\": \"Shawn\",\n  \"last_name\": \"Spencer\",\n  \"profile_image\": [\n   {\n    \"type\": \"laborum sit enim aliquip\",\n    \"uri\": \"deserunt\"\n   },\n   {\n    \"type\": \"ut\",\n    \"uri\": \"enim esse\"\n   }\n  ],\n  \"phone_number\": \"4025551212\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737206,\n  \"user_url\": \"https://app.companycam.com/users/1234\"\n },\n {\n  \"id\": \"2789583992\",\n  \"company_id\": \"8292212\",\n  \"email_address\": \"shawn@psych.co\",\n  \"status\": \"active\",\n  \"first_name\": \"Shawn\",\n  \"last_name\": \"Spencer\",\n  \"profile_image\": [\n   {\n    \"type\": \"Ut consectetur\",\n    \"uri\": \"culpa laborum fugiat\"\n   },\n   {\n    \"type\": \"et ullamco amet quis dolor\",\n    \"uri\": \"id nostrud\"\n   }\n  ],\n  \"phone_number\": \"4025551212\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737206,\n  \"user_url\": \"https://app.companycam.com/users/1234\"\n }\n]"
+        },
+        "post": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"company_id\": \"8292212\",\n \"email_address\": \"shawn@psych.co\",\n \"status\": \"active\",\n \"first_name\": \"Shawn\",\n \"last_name\": \"Spencer\",\n \"profile_image\": [\n  {\n   \"type\": \"adipisicing non\",\n   \"uri\": \"cillum sit do\"\n  },\n  {\n   \"type\": \"fugiat laborum mollit\",\n   \"uri\": \"quis et\"\n  }\n ],\n \"phone_number\": \"4025551212\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737206,\n \"user_url\": \"https://app.companycam.com/users/1234\"\n}"
+        }
+    },
+    "/users/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"company_id\": \"8292212\",\n \"email_address\": \"shawn@psych.co\",\n \"status\": \"active\",\n \"first_name\": \"Shawn\",\n \"last_name\": \"Spencer\",\n \"profile_image\": [\n  {\n   \"type\": \"adipisicing non\",\n   \"uri\": \"cillum sit do\"\n  },\n  {\n   \"type\": \"fugiat laborum mollit\",\n   \"uri\": \"quis et\"\n  }\n ],\n \"phone_number\": \"4025551212\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737206,\n \"user_url\": \"https://app.companycam.com/users/1234\"\n}"
+        },
+        "put": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"company_id\": \"8292212\",\n \"email_address\": \"shawn@psych.co\",\n \"status\": \"active\",\n \"first_name\": \"Shawn\",\n \"last_name\": \"Spencer\",\n \"profile_image\": [\n  {\n   \"type\": \"adipisicing non\",\n   \"uri\": \"cillum sit do\"\n  },\n  {\n   \"type\": \"fugiat laborum mollit\",\n   \"uri\": \"quis et\"\n  }\n ],\n \"phone_number\": \"4025551212\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737206,\n \"user_url\": \"https://app.companycam.com/users/1234\"\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/projects": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"94772883\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"status\": \"active\",\n  \"name\": \"Psych Office\",\n  \"address\": {\n   \"street_address_1\": \"808 P St\",\n   \"city\": \"Lincoln\",\n   \"state\": \"NE\",\n   \"postal_code\": \"68508\",\n   \"country\": \"US\"\n  },\n  \"coordinates\": {\n   \"lat\": 85715078.33733499,\n   \"lon\": -16068837.751699269\n  },\n  \"featured_image\": [\n   {\n    \"type\": \"minim quis proident exercitation\",\n    \"uri\": \"nisi mollit\"\n   },\n   {\n    \"type\": \"in sunt Ut in\",\n    \"uri\": \"occaecat elit\"\n   }\n  ],\n  \"project_url\": \"https://app.companycam.com/projects/1234\",\n  \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n  \"integrations\": [\n   {\n    \"type\": \"JobNimbus\",\n    \"relation_id\": \"123\"\n   },\n   {\n    \"type\": \"JobNimbus\",\n    \"relation_id\": \"123\"\n   }\n  ],\n  \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n  \"public\": false,\n  \"geofence\": [\n   {\n    \"lat\": 94990708.1493468,\n    \"lon\": 56002339.62723297\n   },\n   {\n    \"lat\": -93118067.38045777,\n    \"lon\": 52764975.10305163\n   }\n  ],\n  \"created_at\": 1152230400,\n  \"updated_at\": 1395792000\n },\n {\n  \"id\": \"94772883\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"status\": \"active\",\n  \"name\": \"Psych Office\",\n  \"address\": {\n   \"street_address_1\": \"808 P St\",\n   \"city\": \"Lincoln\",\n   \"state\": \"NE\",\n   \"postal_code\": \"68508\",\n   \"country\": \"US\"\n  },\n  \"coordinates\": {\n   \"lat\": -70403848.48186432,\n   \"lon\": -89200157.13606255\n  },\n  \"featured_image\": [\n   {\n    \"type\": \"labore occaecat mag\",\n    \"uri\": \"aliquip\"\n   },\n   {\n    \"type\": \"aliquip aliqua nostrud\",\n    \"uri\": \"consequat id eu\"\n   }\n  ],\n  \"project_url\": \"https://app.companycam.com/projects/1234\",\n  \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n  \"integrations\": [\n   {\n    \"type\": \"JobNimbus\",\n    \"relation_id\": \"123\"\n   },\n   {\n    \"type\": \"JobNimbus\",\n    \"relation_id\": \"123\"\n   }\n  ],\n  \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n  \"public\": false,\n  \"geofence\": [\n   {\n    \"lat\": 50805902.1051082,\n    \"lon\": 66260414.96289253\n   },\n   {\n    \"lat\": 29786032.73750569,\n    \"lon\": -84861880.19529589\n   }\n  ],\n  \"created_at\": 1152230400,\n  \"updated_at\": 1395792000\n }\n]"
+        },
+        "post": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"94772883\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"status\": \"active\",\n \"name\": \"Psych Office\",\n \"address\": {\n  \"street_address_1\": \"808 P St\",\n  \"city\": \"Lincoln\",\n  \"state\": \"NE\",\n  \"postal_code\": \"68508\",\n  \"country\": \"US\"\n },\n \"coordinates\": {\n  \"lat\": 7846226.309591979,\n  \"lon\": -52765352.88495099\n },\n \"featured_image\": [\n  {\n   \"type\": \"deserunt in\",\n   \"uri\": \"Ut elit\"\n  },\n  {\n   \"type\": \"magna Ut quis\",\n   \"uri\": \"nisi incididunt dolor\"\n  }\n ],\n \"project_url\": \"https://app.companycam.com/projects/1234\",\n \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n \"integrations\": [\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  },\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  }\n ],\n \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n \"public\": false,\n \"geofence\": [\n  {\n   \"lat\": -53958026.2273736,\n   \"lon\": 87619210.1236322\n  },\n  {\n   \"lat\": -18473456.467655286,\n   \"lon\": -97157675.7681222\n  }\n ],\n \"created_at\": 1152230400,\n \"updated_at\": 1395792000\n}"
+        }
+    },
+    "/projects/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"94772883\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"status\": \"active\",\n \"name\": \"Psych Office\",\n \"address\": {\n  \"street_address_1\": \"808 P St\",\n  \"city\": \"Lincoln\",\n  \"state\": \"NE\",\n  \"postal_code\": \"68508\",\n  \"country\": \"US\"\n },\n \"coordinates\": {\n  \"lat\": 7846226.309591979,\n  \"lon\": -52765352.88495099\n },\n \"featured_image\": [\n  {\n   \"type\": \"deserunt in\",\n   \"uri\": \"Ut elit\"\n  },\n  {\n   \"type\": \"magna Ut quis\",\n   \"uri\": \"nisi incididunt dolor\"\n  }\n ],\n \"project_url\": \"https://app.companycam.com/projects/1234\",\n \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n \"integrations\": [\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  },\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  }\n ],\n \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n \"public\": false,\n \"geofence\": [\n  {\n   \"lat\": -53958026.2273736,\n   \"lon\": 87619210.1236322\n  },\n  {\n   \"lat\": -18473456.467655286,\n   \"lon\": -97157675.7681222\n  }\n ],\n \"created_at\": 1152230400,\n \"updated_at\": 1395792000\n}"
+        },
+        "put": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"94772883\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"status\": \"active\",\n \"name\": \"Psych Office\",\n \"address\": {\n  \"street_address_1\": \"808 P St\",\n  \"city\": \"Lincoln\",\n  \"state\": \"NE\",\n  \"postal_code\": \"68508\",\n  \"country\": \"US\"\n },\n \"coordinates\": {\n  \"lat\": 7846226.309591979,\n  \"lon\": -52765352.88495099\n },\n \"featured_image\": [\n  {\n   \"type\": \"deserunt in\",\n   \"uri\": \"Ut elit\"\n  },\n  {\n   \"type\": \"magna Ut quis\",\n   \"uri\": \"nisi incididunt dolor\"\n  }\n ],\n \"project_url\": \"https://app.companycam.com/projects/1234\",\n \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n \"integrations\": [\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  },\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  }\n ],\n \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n \"public\": false,\n \"geofence\": [\n  {\n   \"lat\": -53958026.2273736,\n   \"lon\": 87619210.1236322\n  },\n  {\n   \"lat\": -18473456.467655286,\n   \"lon\": -97157675.7681222\n  }\n ],\n \"created_at\": 1152230400,\n \"updated_at\": 1395792000\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/projects/{}/restore": {
+        "put": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"94772883\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"status\": \"active\",\n \"name\": \"Psych Office\",\n \"address\": {\n  \"street_address_1\": \"808 P St\",\n  \"city\": \"Lincoln\",\n  \"state\": \"NE\",\n  \"postal_code\": \"68508\",\n  \"country\": \"US\"\n },\n \"coordinates\": {\n  \"lat\": 7846226.309591979,\n  \"lon\": -52765352.88495099\n },\n \"featured_image\": [\n  {\n   \"type\": \"deserunt in\",\n   \"uri\": \"Ut elit\"\n  },\n  {\n   \"type\": \"magna Ut quis\",\n   \"uri\": \"nisi incididunt dolor\"\n  }\n ],\n \"project_url\": \"https://app.companycam.com/projects/1234\",\n \"embedded_project_url\": \"https://app.companycam.com/embed/projects/QrL2XjgF8P2dN6MPDRdV2Q\",\n \"integrations\": [\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  },\n  {\n   \"type\": \"JobNimbus\",\n   \"relation_id\": \"123\"\n  }\n ],\n \"slug\": \"QrL2XjgF8P2dN6MPDRdV2Q\",\n \"public\": false,\n \"geofence\": [\n  {\n   \"lat\": -53958026.2273736,\n   \"lon\": 87619210.1236322\n  },\n  {\n   \"lat\": -18473456.467655286,\n   \"lon\": -97157675.7681222\n  }\n ],\n \"created_at\": 1152230400,\n \"updated_at\": 1395792000\n}"
+        }
+    },
+    "/projects/{}/photos": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"4782987471\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"project_id\": \"94772883\",\n  \"processing_status\": \"processed\",\n  \"coordinates\": [\n   {\n    \"lat\": 49895862.802181244,\n    \"lon\": 95481527.34547251\n   },\n   {\n    \"lat\": 1853445.7214097083,\n    \"lon\": 45281589.80938667\n   }\n  ],\n  \"urls\": [\n   {\n    \"type\": \"ut adipisicing\",\n    \"uri\": \"dolor irure\"\n   },\n   {\n    \"type\": \"nulla\",\n    \"uri\": \"fugiat do officia in\"\n   }\n  ],\n  \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n  \"internal\": false,\n  \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n  \"captured_at\": 1152230396,\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n },\n {\n  \"id\": \"4782987471\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"project_id\": \"94772883\",\n  \"processing_status\": \"processed\",\n  \"coordinates\": [\n   {\n    \"lat\": -33631260.33855317,\n    \"lon\": 3480501.7921948284\n   },\n   {\n    \"lat\": -11920261.733794302,\n    \"lon\": -64192792.54482868\n   }\n  ],\n  \"urls\": [\n   {\n    \"type\": \"magna Ut quis sunt consequat\",\n    \"uri\": \"Excepteur in\"\n   },\n   {\n    \"type\": \"esse sunt eiusmod dolore culpa\",\n    \"uri\": \"irure\"\n   }\n  ],\n  \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n  \"internal\": false,\n  \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n  \"captured_at\": 1152230396,\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n }\n]"
+        },
+        "post": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"4782987471\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"project_id\": \"94772883\",\n \"processing_status\": \"processed\",\n \"coordinates\": [\n  {\n   \"lat\": -82437315.85179588,\n   \"lon\": 80048850.74793434\n  },\n  {\n   \"lat\": 10068001.054838628,\n   \"lon\": -49589187.34253812\n  }\n ],\n \"urls\": [\n  {\n   \"type\": \"et\",\n   \"uri\": \"cul\"\n  },\n  {\n   \"type\": \"culpa\",\n   \"uri\": \"eu minim\"\n  }\n ],\n \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n \"internal\": false,\n \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n \"captured_at\": 1152230396,\n \"created_at\": 1152230608,\n \"updated_at\": 1152230400\n}"
+        }
+    },
+    "/projects/{}/labels": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n },\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"48892885\",\n \"company_id\": \"8292212\",\n \"display_value\": \"Front Side\",\n \"value\": \"front side\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230700\n}"
+        }
+    },
+    "/projects/{}/labels/{}": {
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/projects/{}/documents": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"115\",\n  \"creator_id\": \"8675309\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"CompanyCam Developer\",\n  \"project_id\": \"48892885\",\n  \"name\": \"silver-kadabra-measurements.pdf\",\n  \"url\": \"https://static.companycam.com/documents/8374c65e-2048-41d4-b4a7-a9c839fd388a.pdf\",\n  \"content_type\": \"application/pdf\",\n  \"byte_size\": 3457903,\n  \"created_at\": 1621857746,\n  \"updated_at\": 1621857746\n },\n {\n  \"id\": \"115\",\n  \"creator_id\": \"8675309\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"CompanyCam Developer\",\n  \"project_id\": \"48892885\",\n  \"name\": \"silver-kadabra-measurements.pdf\",\n  \"url\": \"https://static.companycam.com/documents/8374c65e-2048-41d4-b4a7-a9c839fd388a.pdf\",\n  \"content_type\": \"application/pdf\",\n  \"byte_size\": 3457903,\n  \"created_at\": 1621857746,\n  \"updated_at\": 1621857746\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"115\",\n \"creator_id\": \"8675309\",\n \"creator_type\": \"User\",\n \"creator_name\": \"CompanyCam Developer\",\n \"project_id\": \"48892885\",\n \"name\": \"silver-kadabra-measurements.pdf\",\n \"url\": \"https://static.companycam.com/documents/8374c65e-2048-41d4-b4a7-a9c839fd388a.pdf\",\n \"content_type\": \"application/pdf\",\n \"byte_size\": 3457903,\n \"created_at\": 1621857746,\n \"updated_at\": 1621857746\n}"
+        }
+    },
+    "/projects/{}/assigned_users": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"2789583992\",\n  \"company_id\": \"8292212\",\n  \"email_address\": \"shawn@psych.co\",\n  \"status\": \"active\",\n  \"first_name\": \"Shawn\",\n  \"last_name\": \"Spencer\",\n  \"profile_image\": [\n   {\n    \"type\": \"laborum sit enim aliquip\",\n    \"uri\": \"deserunt\"\n   },\n   {\n    \"type\": \"ut\",\n    \"uri\": \"enim esse\"\n   }\n  ],\n  \"phone_number\": \"4025551212\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737206,\n  \"user_url\": \"https://app.companycam.com/users/1234\"\n },\n {\n  \"id\": \"2789583992\",\n  \"company_id\": \"8292212\",\n  \"email_address\": \"shawn@psych.co\",\n  \"status\": \"active\",\n  \"first_name\": \"Shawn\",\n  \"last_name\": \"Spencer\",\n  \"profile_image\": [\n   {\n    \"type\": \"Ut consectetur\",\n    \"uri\": \"culpa laborum fugiat\"\n   },\n   {\n    \"type\": \"et ullamco amet quis dolor\",\n    \"uri\": \"id nostrud\"\n   }\n  ],\n  \"phone_number\": \"4025551212\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737206,\n  \"user_url\": \"https://app.companycam.com/users/1234\"\n }\n]"
+        }
+    },
+    "/projects/{}/assigned_users/{}": {
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"2789583992\",\n \"company_id\": \"8292212\",\n \"email_address\": \"shawn@psych.co\",\n \"status\": \"active\",\n \"first_name\": \"Shawn\",\n \"last_name\": \"Spencer\",\n \"profile_image\": [\n  {\n   \"type\": \"adipisicing non\",\n   \"uri\": \"cillum sit do\"\n  },\n  {\n   \"type\": \"fugiat laborum mollit\",\n   \"uri\": \"quis et\"\n  }\n ],\n \"phone_number\": \"4025551212\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737206,\n \"user_url\": \"https://app.companycam.com/users/1234\"\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/projects/{}/collaborators": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[]"
+        }
+    },
+    "/projects/{}/comments": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[{\"id\":\"27673033\",\"commentable_id\":\"45276484\",\"commentable_type\":\"Location\",\"status\":\"active\",\"content\":\"This is a second comment\",\"creator_id\":\"2789583992\",\"creator_type\":\"User\",\"creator_name\":\"Shawn Spencer\",\"created_at\":1671056971,\"updated_at\":1671056971},{\"id\":\"27673025\",\"commentable_id\":\"44176084\",\"commentable_type\":\"Location\",\"status\":\"active\",\"content\":\"First comment\",\"creator_id\":\"2789583992\",\"creator_type\":\"User\",\"creator_name\":\"Shawn Spencer\",\"created_at\":1671056966,\"updated_at\":1671056966}]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\"id\":\"23613207\",\"commentable_id\":\"41176684\",\"commentable_type\":\"Location\",\"status\":\"active\",\"content\":\"posting a comment\",\"creator_id\":\"2789583992\",\"creator_type\":\"User\",\"creator_name\":\"Shawn Spencer\",\"created_at\":1671057838,\"updated_at\":1671057838}"
+        }
+    },
+    "/projects/{}/invitations": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[{\"id\":\"371221\",\"project_id\":\"56285973\",\"invite_url\":\"https://l.cmpy.cam/QQhAVmEuzdJwmQe67\",\"status\":\"pending\",\"accepted_at\":null,\"accepted_by_id\":null,\"expires_at\":1671580800,\"permissions\":[\"can_add_content\",\"can_comment\",\"can_use_todos\"],\"creator_id\":1038293,\"created_at\":1671059796,\"updated_at\":1671059796},{\"id\":\"260225\",\"project_id\":\"44177341\",\"invite_url\":\"https://l.cmpy.cam/9vT843PkerHqpVb2A\",\"status\":\"pending\",\"accepted_at\":null,\"accepted_by_id\":null,\"expires_at\":1671580800,\"permissions\":[\"can_view_content\"],\"creator_id\":1849435,\"created_at\":1671059674,\"updated_at\":1671059674}]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\"id\":\"260094\",\"project_id\":\"73146053\",\"invite_url\":\"https://l.cmpy.cam/9vT849PkgrVqpYb8A\",\"status\":\"pending\",\"accepted_at\":null,\"accepted_by_id\":null,\"expires_at\":1671580800,\"permissions\":[\"can_view_content\"],\"creator_id\":2789583992,\"created_at\":1671059674,\"updated_at\":1671059674}"
+        }
+    },
+    "/projects/{}/notepad": {
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\"notepad\":\"Update the notepad again\"}"
+        }
+    },
+    "/photos": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"4782987471\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"project_id\": \"94772883\",\n  \"processing_status\": \"processed\",\n  \"coordinates\": [\n   {\n    \"lat\": 49895862.802181244,\n    \"lon\": 95481527.34547251\n   },\n   {\n    \"lat\": 1853445.7214097083,\n    \"lon\": 45281589.80938667\n   }\n  ],\n  \"urls\": [\n   {\n    \"type\": \"ut adipisicing\",\n    \"uri\": \"dolor irure\"\n   },\n   {\n    \"type\": \"nulla\",\n    \"uri\": \"fugiat do officia in\"\n   }\n  ],\n  \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n  \"internal\": false,\n  \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n  \"captured_at\": 1152230396,\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n },\n {\n  \"id\": \"4782987471\",\n  \"company_id\": \"8292212\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"project_id\": \"94772883\",\n  \"processing_status\": \"processed\",\n  \"coordinates\": [\n   {\n    \"lat\": -33631260.33855317,\n    \"lon\": 3480501.7921948284\n   },\n   {\n    \"lat\": -11920261.733794302,\n    \"lon\": -64192792.54482868\n   }\n  ],\n  \"urls\": [\n   {\n    \"type\": \"magna Ut quis sunt consequat\",\n    \"uri\": \"Excepteur in\"\n   },\n   {\n    \"type\": \"esse sunt eiusmod dolore culpa\",\n    \"uri\": \"irure\"\n   }\n  ],\n  \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n  \"internal\": false,\n  \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n  \"captured_at\": 1152230396,\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n }\n]"
+        }
+    },
+    "/photos/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"4782987471\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"project_id\": \"94772883\",\n \"processing_status\": \"processed\",\n \"coordinates\": [\n  {\n   \"lat\": -82437315.85179588,\n   \"lon\": 80048850.74793434\n  },\n  {\n   \"lat\": 10068001.054838628,\n   \"lon\": -49589187.34253812\n  }\n ],\n \"urls\": [\n  {\n   \"type\": \"et\",\n   \"uri\": \"cul\"\n  },\n  {\n   \"type\": \"culpa\",\n   \"uri\": \"eu minim\"\n  }\n ],\n \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n \"internal\": false,\n \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n \"captured_at\": 1152230396,\n \"created_at\": 1152230608,\n \"updated_at\": 1152230400\n}"
+        },
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"4782987471\",\n \"company_id\": \"8292212\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"project_id\": \"94772883\",\n \"processing_status\": \"processed\",\n \"coordinates\": [\n  {\n   \"lat\": -82437315.85179588,\n   \"lon\": 80048850.74793434\n  },\n  {\n   \"lat\": 10068001.054838628,\n   \"lon\": -49589187.34253812\n  }\n ],\n \"urls\": [\n  {\n   \"type\": \"et\",\n   \"uri\": \"cul\"\n  },\n  {\n   \"type\": \"culpa\",\n   \"uri\": \"eu minim\"\n  }\n ],\n \"hash\": \"00ab337b7399151e5d4aa3bd4226e8dd\",\n \"internal\": false,\n \"photo_url\": \"https://app.companycam.com/photos/8675309\",\n \"captured_at\": 1152230396,\n \"created_at\": 1152230608,\n \"updated_at\": 1152230400\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/photos/{}/tags": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n },\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"48892885\",\n \"company_id\": \"8292212\",\n \"display_value\": \"Front Side\",\n \"value\": \"front side\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230700\n}"
+        }
+    },
+    "/photos/{}/comments": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"4782987471\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"commentable_id\": \"388472672\",\n  \"commentable_type\": \"Photo\",\n  \"status\": \"active\",\n  \"content\": \"Have you seen this yet?\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n },\n {\n  \"id\": \"4782987471\",\n  \"creator_id\": \"2789583992\",\n  \"creator_type\": \"User\",\n  \"creator_name\": \"Shawn Spencer\",\n  \"commentable_id\": \"388472672\",\n  \"commentable_type\": \"Photo\",\n  \"status\": \"active\",\n  \"content\": \"Have you seen this yet?\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230400\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"4782987471\",\n \"creator_id\": \"2789583992\",\n \"creator_type\": \"User\",\n \"creator_name\": \"Shawn Spencer\",\n \"commentable_id\": \"388472672\",\n \"commentable_type\": \"Photo\",\n \"status\": \"active\",\n \"content\": \"Have you seen this yet?\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230400\n}"
+        }
+    },
+    "/tags": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n },\n {\n  \"id\": \"48892885\",\n  \"company_id\": \"8292212\",\n  \"display_value\": \"Front Side\",\n  \"value\": \"front side\",\n  \"created_at\": 1152230608,\n  \"updated_at\": 1152230700\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"48892885\",\n \"company_id\": \"8292212\",\n \"display_value\": \"Front Side\",\n \"value\": \"front side\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230700\n}"
+        }
+    },
+    "/tags/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"48892885\",\n \"company_id\": \"8292212\",\n \"display_value\": \"Front Side\",\n \"value\": \"front side\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230700\n}"
+        },
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"48892885\",\n \"company_id\": \"8292212\",\n \"display_value\": \"Front Side\",\n \"value\": \"front side\",\n \"created_at\": 1152230608,\n \"updated_at\": 1152230700\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/groups": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"3992883\",\n  \"company_id\": \"8292212\",\n  \"name\": \"The Psych Crew\",\n  \"users\": [\n   {\n    \"id\": \"2789583992\",\n    \"company_id\": \"8292212\",\n    \"email_address\": \"shawn@psych.co\",\n    \"status\": \"active\",\n    \"first_name\": \"Shawn\",\n    \"last_name\": \"Spencer\",\n    \"profile_image\": [\n     {\n      \"type\": \"pariatur\",\n      \"uri\": \"Duis dolore dolor\"\n     },\n     {\n      \"type\": \"sed proident elit\",\n      \"uri\": \"laborum non\"\n     }\n    ],\n    \"phone_number\": \"4025551212\",\n    \"created_at\": 1490737206,\n    \"updated_at\": 1490737206,\n    \"user_url\": \"https://app.companycam.com/users/1234\"\n   },\n   {\n    \"id\": \"2789583992\",\n    \"company_id\": \"8292212\",\n    \"email_address\": \"shawn@psych.co\",\n    \"status\": \"active\",\n    \"first_name\": \"Shawn\",\n    \"last_name\": \"Spencer\",\n    \"profile_image\": [\n     {\n      \"type\": \"culpa deserunt fugiat\",\n      \"uri\": \"anim adipisicing quis exercitation\"\n     },\n     {\n      \"type\": \"cillum nostrud aute est\",\n      \"uri\": \"consequat\"\n     }\n    ],\n    \"phone_number\": \"4025551212\",\n    \"created_at\": 1490737206,\n    \"updated_at\": 1490737206,\n    \"user_url\": \"https://app.companycam.com/users/1234\"\n   }\n  ],\n  \"status\": \"active\",\n  \"group_url\": \"https://app.companycam.com/groups/1234\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737744\n },\n {\n  \"id\": \"3992883\",\n  \"company_id\": \"8292212\",\n  \"name\": \"The Psych Crew\",\n  \"users\": [\n   {\n    \"id\": \"2789583992\",\n    \"company_id\": \"8292212\",\n    \"email_address\": \"shawn@psych.co\",\n    \"status\": \"active\",\n    \"first_name\": \"Shawn\",\n    \"last_name\": \"Spencer\",\n    \"profile_image\": [\n     {\n      \"type\": \"fugiat sunt\",\n      \"uri\": \"incididunt nisi ipsum in Duis\"\n     },\n     {\n      \"type\": \"culpa sunt\",\n      \"uri\": \"dolor\"\n     }\n    ],\n    \"phone_number\": \"4025551212\",\n    \"created_at\": 1490737206,\n    \"updated_at\": 1490737206,\n    \"user_url\": \"https://app.companycam.com/users/1234\"\n   },\n   {\n    \"id\": \"2789583992\",\n    \"company_id\": \"8292212\",\n    \"email_address\": \"shawn@psych.co\",\n    \"status\": \"active\",\n    \"first_name\": \"Shawn\",\n    \"last_name\": \"Spencer\",\n    \"profile_image\": [\n     {\n      \"type\": \"elit veniam reprehenderit ad Ut\",\n      \"uri\": \"sunt et reprehenderit qui\"\n     },\n     {\n      \"type\": \"culpa aliqua\",\n      \"uri\": \"aute sed\"\n     }\n    ],\n    \"phone_number\": \"4025551212\",\n    \"created_at\": 1490737206,\n    \"updated_at\": 1490737206,\n    \"user_url\": \"https://app.companycam.com/users/1234\"\n   }\n  ],\n  \"status\": \"active\",\n  \"group_url\": \"https://app.companycam.com/groups/1234\",\n  \"created_at\": 1490737206,\n  \"updated_at\": 1490737744\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"3992883\",\n \"company_id\": \"8292212\",\n \"name\": \"The Psych Crew\",\n \"users\": [\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"aliquip in officia\",\n     \"uri\": \"qui sit\"\n    },\n    {\n     \"type\": \"minim dolore laboris ir\",\n     \"uri\": \"in\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  },\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"irure fu\",\n     \"uri\": \"non\"\n    },\n    {\n     \"type\": \"sit ipsum incididunt anim consequat\",\n     \"uri\": \"reprehenderit\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  }\n ],\n \"status\": \"active\",\n \"group_url\": \"https://app.companycam.com/groups/1234\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737744\n}"
+        }
+    },
+    "/groups/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"3992883\",\n \"company_id\": \"8292212\",\n \"name\": \"The Psych Crew\",\n \"users\": [\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"aliquip in officia\",\n     \"uri\": \"qui sit\"\n    },\n    {\n     \"type\": \"minim dolore laboris ir\",\n     \"uri\": \"in\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  },\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"irure fu\",\n     \"uri\": \"non\"\n    },\n    {\n     \"type\": \"sit ipsum incididunt anim consequat\",\n     \"uri\": \"reprehenderit\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  }\n ],\n \"status\": \"active\",\n \"group_url\": \"https://app.companycam.com/groups/1234\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737744\n}"
+        },
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"3992883\",\n \"company_id\": \"8292212\",\n \"name\": \"The Psych Crew\",\n \"users\": [\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"aliquip in officia\",\n     \"uri\": \"qui sit\"\n    },\n    {\n     \"type\": \"minim dolore laboris ir\",\n     \"uri\": \"in\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  },\n  {\n   \"id\": \"2789583992\",\n   \"company_id\": \"8292212\",\n   \"email_address\": \"shawn@psych.co\",\n   \"status\": \"active\",\n   \"first_name\": \"Shawn\",\n   \"last_name\": \"Spencer\",\n   \"profile_image\": [\n    {\n     \"type\": \"irure fu\",\n     \"uri\": \"non\"\n    },\n    {\n     \"type\": \"sit ipsum incididunt anim consequat\",\n     \"uri\": \"reprehenderit\"\n    }\n   ],\n   \"phone_number\": \"4025551212\",\n   \"created_at\": 1490737206,\n   \"updated_at\": 1490737206,\n   \"user_url\": \"https://app.companycam.com/users/1234\"\n  }\n ],\n \"status\": \"active\",\n \"group_url\": \"https://app.companycam.com/groups/1234\",\n \"created_at\": 1490737206,\n \"updated_at\": 1490737744\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    },
+    "/webhooks": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "[\n {\n  \"id\": \"occaecat dolor dolore\",\n  \"company_id\": \"proident eu amet\",\n  \"url\": \"labore ut\",\n  \"scopes\": [\n   \"sit voluptate ipsum\",\n   \"nisi in\"\n  ],\n  \"token\": \"eu dolore\",\n  \"enabled\": false,\n  \"created_at\": 93318845,\n  \"updated_at\": -29093210\n },\n {\n  \"id\": \"dolor cons\",\n  \"company_id\": \"Lorem aliqua dolore laborum\",\n  \"url\": \"occaecat velit\",\n  \"scopes\": [\n   \"enim Duis nisi laborum\",\n   \"ullamco consectetur dolore eu Lorem\"\n  ],\n  \"token\": \"esse minim occaecat magna\",\n  \"enabled\": true,\n  \"created_at\": -81762971,\n  \"updated_at\": -29117935\n }\n]"
+        },
+        "post": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"labore Ut laborum consequat\",\n \"company_id\": \"tempor elit\",\n \"url\": \"Ut consequat\",\n \"scopes\": [\n  \"commodo\",\n  \"cupidatat sun\"\n ],\n \"token\": \"aliquip\",\n \"enabled\": false,\n \"created_at\": 41172137,\n \"updated_at\": 81586808\n}"
+        }
+    },
+    "/webhooks/{}": {
+        "get": {
+            "status_code": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"labore Ut laborum consequat\",\n \"company_id\": \"tempor elit\",\n \"url\": \"Ut consequat\",\n \"scopes\": [\n  \"commodo\",\n  \"cupidatat sun\"\n ],\n \"token\": \"aliquip\",\n \"enabled\": false,\n \"created_at\": 41172137,\n \"updated_at\": 81586808\n}"
+        },
+        "put": {
+            "status_code": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "content": "{\n \"id\": \"labore Ut laborum consequat\",\n \"company_id\": \"tempor elit\",\n \"url\": \"Ut consequat\",\n \"scopes\": [\n  \"commodo\",\n  \"cupidatat sun\"\n ],\n \"token\": \"aliquip\",\n \"enabled\": false,\n \"created_at\": 41172137,\n \"updated_at\": 81586808\n}"
+        },
+        "delete": {
+            "status_code": 204,
+            "headers": {
+                "Content-Type": "text/plain"
+            },
+            "content": ""
+        }
+    }
+}

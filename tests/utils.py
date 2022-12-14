@@ -1,19 +1,86 @@
 from __future__ import annotations
 
+import json
 import re
 import types
 import typing
 from functools import cached_property
-from inspect import getmembers, isclass, isfunction
-from pathlib import Path
+from inspect import getmembers, isclass, isfunction, signature
 
+import httpx
 import pytest
 import yaml
+from pytest_mock import MockerFixture
+
+import companycam
+
+from . import paths
 
 if typing.TYPE_CHECKING:
     from companycam.managers import BaseManager
 
-PATH_TO_OPENAPI_YAML: Path = Path(__file__).parent.parent / "openapi-spec/openapi.yaml"
+
+# Functions which automatically discover objects which need to be tested to ensure
+# reliable coverage
+
+
+def get_managers_from_module(managers: types.ModuleType) -> typing.Dict:
+    return dict(
+        getmembers(managers, lambda m: isclass(m) and m.__module__ == managers.__name__)
+    )
+
+
+def get_models_from_module(models: types.ModuleType) -> typing.Dict:
+    return dict(
+        getmembers(models, lambda m: isclass(m) and m.__module__ == models.__name__)
+    )
+
+
+def get_paths_from_manager_cls(manager: BaseManager) -> typing.Dict:
+    return dict(
+        getmembers(manager, lambda m: isfunction(m) and hasattr(m, "_decorated_by"))
+    )
+
+
+# Utils for connecting the dots between our client, the OpenAPI spec, HTTPX objects etc.
+
+
+def clean_url(url: str) -> str:
+    """Remove any query strings or anchors from the URL."""
+    return url.split("?")[0].split("#")[0]
+
+
+def get_2xx_status_code(status_codes: typing.Iterable[typing.Union[int, str]]) -> str:
+    """Get the 2xx status code from an iterable of status codes (expects one, only)."""
+    codes_2xx = [str(c) for c in status_codes if str(c).startswith("2")]
+    if len(codes_2xx) > 1:
+        raise ValueError(
+            "Found multiple success (2xx) status codes: " + ", ".join(codes_2xx)
+        )
+    elif len(codes_2xx) == 0:
+        raise ValueError("Could not find success (2xx) status code")
+    return codes_2xx[0]
+
+
+def get_matching_url(format_strings: typing.Iterable[str], target_url: str) -> str:
+    """Given an iterable of format strings e.g. `/users/{id}` find a match against a
+    real URL e.g. `/users/1234`. Prefer exact matches e.g. `target_url="/users/current"
+    would match `/users/current` rather than `/users/{}` if both format strings are
+    present.
+    """
+    target_url = clean_url(target_url)
+    matching_urls = [u for u in format_strings if match_url(u, target_url)]
+    if len(matching_urls) == 1:
+        return matching_urls[0]
+    elif len(matching_urls) > 1:
+        # Return an exact match if it exists
+        for url in matching_urls:
+            if target_url.endswith(url):
+                return url
+        raise ValueError(
+            f"Matched more than one URL for '{target_url}': " + ", ".join(matching_urls)
+        )
+    raise ValueError(f"Could not find matching URL for '{target_url}'")
 
 
 def get_name_from_ref(uri: str) -> str:
@@ -24,10 +91,19 @@ def get_name_from_ref(uri: str) -> str:
 
 
 def load_openapi_spec() -> typing.Dict:
-    data = {}
-    with open(PATH_TO_OPENAPI_YAML, "r") as f:
-        data = yaml.safe_load(f)
-    return data
+    with open(paths.OPENAPI_YAML, "r") as f:
+        return yaml.safe_load(f)
+
+
+def match_url(format_string: str, url: str) -> bool:
+    """Match a format string e.g. `/users/{id}` against a real URL e.g. `/users/1234`."""
+    format_string_re = (
+        r"^(?:https?://)?"
+        + r"(?:[^/]*)"
+        + normalize_url(format_string).replace("{}", r"(?:[\w%]+)")
+        + r"(?:/?)$"
+    )
+    return bool(re.search(format_string_re, url))
 
 
 def normalize_url(url: str) -> str:
@@ -35,6 +111,9 @@ def normalize_url(url: str) -> str:
     would become `/users/{}`.
     """
     return re.sub(r"{\w*}", "{}", url)
+
+
+# Classes to load an OpenAPI specification into and provide helpers
 
 
 class OpenAPIPath(object):
@@ -96,17 +175,7 @@ class OpenAPIPath(object):
 
     @cached_property
     def status_code_2xx(self) -> str:
-        responses_2xx = [r for r in self.responses if str(r).startswith("2")]
-        if len(responses_2xx) > 1:
-            raise ValueError(
-                f"({self.method} {self.url}) Found multiple valid (2xx) status codes: "
-                + ", ".join(responses_2xx)
-            )
-        elif len(responses_2xx) == 0:
-            raise ValueError(
-                f"({self.method} {self.url}) Could not find valid (2xx) status code"
-            )
-        return responses_2xx[0]
+        return get_2xx_status_code(self.responses)
 
 
 class OpenAPI(object):
@@ -147,42 +216,66 @@ class OpenAPI(object):
             raise ValueError(f"URL '{url}' not found in OpenAPI specification.")
 
 
+# Classes for aggregating and testing our models and manager paths
+
+
+class ClientSendPatcher(object):
+    def __init__(self, mocker: MockerFixture) -> None:
+        self.mock = mocker.patch("httpx.Client.send")
+        self.mock.side_effect = self.get_response
+        with open(paths.FIXTURE_V2_RESPONSES, "r") as f:
+            self.fixture = json.load(f)
+
+    @property
+    def request(self) -> httpx.Request:
+        return self.mock.call_args[0][0]
+
+    def get_response(self, request: httpx.Request) -> httpx.Response:
+        try:
+            url = str(request.url)
+            method = request.method.lower()
+            fixture_url = get_matching_url(self.fixture, url)  # can raise ValueError
+            response = self.fixture[fixture_url][method]  # can raise KeyError
+        except (KeyError, ValueError) as exc:
+            raise type(exc)(
+                f"{exc} (Is an API path missing a fixture? i.e. '{request.method} "
+                f"{url}')"
+            ) from None
+        return httpx.Response(**response)
+
+
+class ManagerPath(object):
+    def __init__(
+        self, func: typing.Callable[..., typing.Any], manager: BaseManager
+    ) -> None:
+        self.func = func
+        self.func_name = func.__name__
+        self.func_parameters = dict(signature(func).parameters)
+        self.manager = manager
+        self.method = func._decorated_by.method  # type: ignore[attr-defined]
+        self.return_type = func._decorated_by.return_type  # type: ignore[attr-defined]
+        self.url = func._decorated_by.url  # type: ignore[attr-defined]
+
+    def call(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
+        api = companycam.API(token="TEST_TOKEN", server_url="http://testserver")
+        manager_obj = self.manager(api.client)
+        result = getattr(manager_obj, self.func_name)(*args, **kwargs)
+        return result
+
+    def filter_kwargs(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
+        """Filter out any kwargs which are not valid func parameters"""
+        return {k: v for k, v in kwargs.items() if k in self.func_parameters}
+
+
 class ClientTestHelper(object):
     def __init__(self, managers: types.ModuleType, models: types.ModuleType) -> None:
-        self.managers = self.get_managers_from_module(managers)
-        self.models = self.get_managers_from_module(models)
-
-    @staticmethod
-    def get_managers_from_module(managers: types.ModuleType) -> typing.Dict:
-        return dict(
-            getmembers(
-                managers, lambda m: isclass(m) and m.__module__ == managers.__name__
-            )
-        )
-
-    @staticmethod
-    def get_models_from_module(models: types.ModuleType) -> typing.Dict:
-        return dict(
-            getmembers(models, lambda m: isclass(m) and m.__module__ == models.__name__)
-        )
-
-    @staticmethod
-    def get_paths_from_manager_cls(manager: BaseManager) -> typing.Dict:
-        return dict(
-            getmembers(manager, lambda m: isfunction(m) and hasattr(m, "_decorated_by"))
-        )
+        self.managers = get_managers_from_module(managers)
+        self.models = get_managers_from_module(models)
 
     @cached_property
-    def manager_paths(self) -> typing.List[typing.Dict]:
+    def manager_paths(self) -> typing.List[ManagerPath]:
         return [
-            {
-                "func": func,
-                "func_name": func_name,
-                "manager": manager,
-                "method": func._decorated_by.method,
-                "return_type": func._decorated_by.return_type,
-                "url": func._decorated_by.url,
-            }
+            ManagerPath(func, manager)
             for manager in self.managers.values()
-            for func_name, func in self.get_paths_from_manager_cls(manager).items()
+            for func_name, func in get_paths_from_manager_cls(manager).items()
         ]
