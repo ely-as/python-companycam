@@ -135,6 +135,13 @@ class OpenAPIPath(object):
         return [p for p in self.parameters if p.get("in") == "query"]
 
     @cached_property
+    def request_json_schema(self) -> typing.Dict:
+        try:
+            return self.dict["requestBody"]["content"]["application/json"]["schema"]
+        except KeyError:
+            return {}
+
+    @cached_property
     def responses(self) -> typing.Dict[str, typing.Dict]:
         return self.dict["responses"]
 

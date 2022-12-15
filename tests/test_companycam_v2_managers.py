@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from pytest_mock import MockerFixture
 
@@ -76,3 +78,20 @@ def test_all_manager_paths_accept_query_parameters_if_specified_in_OpenAPI_spec(
         kwargs["query"] = {"page": 2}
         path.call(**kwargs)
         assert "page=2" in str(patch.request.url)
+
+
+@pytest.mark.parametrize("path", CLIENT_V2.manager_paths)
+def test_all_manager_paths_generate_correct_JSON_in_requests_as_per_OpenAPI_spec(
+    mocker: MockerFixture, path: utils.ManagerPath
+) -> None:
+    openapi_path = OPENAPI_find_path_with_skip(method=path.method, url=path.url)
+    if schema := openapi_path.request_json_schema:
+        patch = utils.ClientSendPatcher(mocker)
+        path.call(**path.filter_kwargs(**v2_model_objects.KWARGS))
+        data = json.loads(patch.request.content)
+        for key in data.keys():
+            if key not in schema["properties"]:
+                pytest.fail(
+                    f"'{path.manager.__name__}.{path.func_name}' generates incorrect "
+                    f"JSON for requests, see schema: {schema}"
+                )
