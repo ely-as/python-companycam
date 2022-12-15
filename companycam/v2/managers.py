@@ -94,7 +94,7 @@ class ProjectsManager(BaseManager):
     def list_photos(
         self, project: Project | str, query: QueryTypes = None
     ) -> List[Photo]:
-        return request()
+        return request(params=query)
 
     @post("/projects/{project}/photos", Photo)
     def create_photo(self, project: Project | str, photo: Photo) -> Photo:
@@ -135,8 +135,10 @@ class ProjectsManager(BaseManager):
         return request(params=query)
 
     @post("/projects/{project}/invitations", ProjectInvitation)
-    def create_invitation(self, project: Project | str) -> ProjectInvitation:
-        return request()
+    def create_invitation(
+        self, project: Project | str, invitation: ProjectInvitation
+    ) -> ProjectInvitation:
+        return request(json=invitation.dict(include={"permissions"}))
 
     @get("/projects/{project}/labels", List[Tag])
     def list_labels(
@@ -160,7 +162,7 @@ class ProjectsManager(BaseManager):
 
     @post("/projects/{project}/documents", Document)
     def create_document(self, project: Project | str, document: Document) -> Document:
-        return request(json=document.dict(include={"name", "attachment"}))
+        return request(json={"document": document.dict(include={"name", "attachment"})})
 
     @get("/projects/{project}/comments", List[Comment])
     def list_comments(
@@ -170,7 +172,7 @@ class ProjectsManager(BaseManager):
 
     @post("/projects/{project}/comments", Comment)
     def create_comment(self, project: Project | str, comment: Comment) -> Comment:
-        return request(json=comment.dict(include={"content"}))
+        return request(json={"comment": comment.dict(include={"content"})})
 
 
 class PhotosManager(BaseManager):
@@ -184,7 +186,7 @@ class PhotosManager(BaseManager):
 
     @put("/photos/{photo}", Photo)
     def update(self, photo: Photo) -> Photo:
-        return request(json=photo.dict(include={"internal"}))
+        return request(json={"photo": photo.dict(include={"internal"})})
 
     @delete_("/photos/{photo}", bool)
     def delete(self, photo: Photo | str) -> bool:
@@ -196,7 +198,7 @@ class PhotosManager(BaseManager):
 
     @post("/photos/{photo}/tags", Tag)
     def create_tags(self, photo: Photo | str, *tags: str) -> Tag:
-        return request(json={"photo": {"tags": [*tags]}})
+        return request(json={"tags": [*tags]})
 
     @get("/photos/{photo}/comments", List[Comment])
     def list_comments(
@@ -206,7 +208,7 @@ class PhotosManager(BaseManager):
 
     @post("/photos/{photo}/comments", Comment)
     def create_comment(self, photo: Photo | str, comment: Comment) -> Comment:
-        return request(json=comment.dict(include={"content"}))
+        return request(json={"comment": comment.dict(include={"content"})})
 
 
 class TagsManager(BaseManager):
@@ -216,7 +218,7 @@ class TagsManager(BaseManager):
 
     @post("/tags", Tag)
     def create(self, tag: Tag) -> Tag:
-        return request(json=tag.dict(include={"display_value"}))
+        return request(json={"tag": tag.dict(include={"display_value"})})
 
     @get("/tags/{tag}", Tag)
     def retrieve(self, tag: Tag | str) -> Tag:
@@ -224,7 +226,7 @@ class TagsManager(BaseManager):
 
     @put("/tags/{tag}", Tag)
     def update(self, tag: Tag) -> Tag:
-        return request(json=tag.dict(include={"display_value"}))
+        return request(json={"tag": tag.dict(include={"display_value"})})
 
     @delete_("/tags/{tag}", bool)
     def delete(self, tag: Tag | str) -> bool:
@@ -238,7 +240,7 @@ class GroupsManager(BaseManager):
 
     @post("/groups", Group)
     def create(self, group: Group) -> Group:
-        return request(json=group.dict(include={"name", "users"}))
+        return request(json={"group": group.dict(include={"name", "users"})})
 
     @get("/groups/{group}", Group)
     def retrieve(self, group: Group | str) -> Group:
@@ -246,7 +248,7 @@ class GroupsManager(BaseManager):
 
     @put("/groups/{group}", Group)
     def update(self, group: Group) -> Group:
-        return request(json=group.dict(include={"name", "users"}))
+        return request(json={"group": group.dict(include={"name", "users"})})
 
     @delete_("/groups/{group}", bool)
     def delete(self, group: Group | str) -> bool:
