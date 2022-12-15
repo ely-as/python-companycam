@@ -10,7 +10,7 @@
 python -m pip install companycam-unofficial
 ```
 
-## Usage
+## Basic usage
 
 ```py
 >>> import companycam
@@ -25,38 +25,11 @@ python -m pip install companycam-unofficial
 Project(id='23456789', name='My new project', ...)
 ```
 
-## Development
+For more detailed usage see [Usage](https://github.com/ely-as/python-companycam/blob/main/docs/usage.md).
 
-### Installation
+## Contributing
 
-```sh
-git clone --recurse-submodules git+https://github.com/ely-as/python-companycam
-cd python-companycam
-python -m pip install -e .
-```
-
-### Run tests
-
-Install [tox](https://tox.wiki/en/latest/):
-```sh
-python -m pip install tox
-```
-
-Run tox:
-```sh
-tox
-```
-
-Run a specific tox environment:
-```sh
-tox -e flake8
-```
-
-### Update Git submodules
-
-```sh
-git submodule foreach git pull
-```
+See [Contributing](https://github.com/ely-as/python-companycam/blob/main/docs/contributing.md).
 
 ## Resources
 
