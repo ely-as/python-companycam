@@ -69,4 +69,4 @@ git submodule foreach git pull
 
 ## License
 
-[MIT](LICENSE).
+[MIT](https://github.com/ely-as/python-companycam/blob/main/LICENSE).
