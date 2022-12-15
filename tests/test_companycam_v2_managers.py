@@ -15,6 +15,9 @@ OPENAPI = utils.OpenAPI()
 
 
 def OPENAPI_find_path_with_skip(method: str, url: str) -> utils.OpenAPIPath:  # type: ignore[return]
+    """This function assumes that `test_all_manager_paths_exist_in_OpenAPI_spec()`
+    exists and will fail if `OpenAPI.find_path()` raises a `ValueError`.
+    """
     try:
         return OPENAPI.find_path(method=method, url=url)
     except ValueError:
@@ -89,6 +92,7 @@ def test_all_manager_paths_generate_correct_JSON_in_requests_as_per_OpenAPI_spec
         patch = utils.ClientSendPatcher(mocker)
         path.call(**path.filter_kwargs(**v2_model_objects.KWARGS))
         data = json.loads(patch.request.content)
+        # Does not check deeper than one object
         for key in data.keys():
             if key not in schema["properties"]:
                 pytest.fail(
