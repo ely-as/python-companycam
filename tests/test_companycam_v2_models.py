@@ -128,3 +128,9 @@ def test_pydantic_model_Literal_fields_have_same_enum_options_as_OpenAPI_compone
         pytest.fail(
             f"Expected field '{property_name}' in pydantic model '{model}' to be a fixed field with enum={enum}"
         )
+
+
+def test_Photo_model_can_coerce_coordinates_input_to_list() -> None:
+    Photo = CLIENT_V2.models["Photo"]
+    photo = Photo(coordinates={"lat": 0.0, "lon": 0.0})
+    assert isinstance(photo.coordinates, list)

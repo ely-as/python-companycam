@@ -189,6 +189,12 @@ class Photo(ModelWithRequiredID):
     created_at: Optional[int]
     updated_at: Optional[int]
 
+    def __init__(self, *args, **kwargs) -> None:
+        if coordinates := kwargs.get("coordinates"):
+            if isinstance(coordinates, dict):
+                kwargs["coordinates"] = [coordinates]
+        super().__init__(*args, **kwargs)
+
 
 class Project(ModelWithRequiredID):
     company_id: Optional[str]
