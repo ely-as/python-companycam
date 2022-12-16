@@ -148,8 +148,8 @@ class ProjectsManager(BaseManager):
     ) -> List[Tag]:
         return request(params=query)
 
-    @post("/projects/{project}/labels", Tag)
-    def create_labels(self, project: Project | str, *labels: str) -> Tag:
+    @post("/projects/{project}/labels", List[Tag])
+    def create_labels(self, project: Project | str, *labels: str) -> List[Tag]:
         return request(json={"project": {"labels": [*labels]}})
 
     @delete_("/projects/{project}/labels/{label}", bool)
@@ -204,8 +204,8 @@ class PhotosManager(BaseManager):
     def list_tags(self, photo: Photo | str, query: QueryTypes = None) -> List[Tag]:
         return request(params=query)
 
-    @post("/photos/{photo}/tags", Tag)
-    def create_tags(self, photo: Photo | str, *tags: str) -> Tag:
+    @post("/photos/{photo}/tags", List[Tag])
+    def create_tags(self, photo: Photo | str, *tags: str) -> List[Tag]:
         return request(json={"tags": [*tags]})
 
     @get("/photos/{photo}/comments", List[Comment])
