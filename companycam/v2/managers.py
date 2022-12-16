@@ -100,9 +100,11 @@ class ProjectsManager(BaseManager):
 
     @post("/projects/{project}/photos", Photo)
     def create_photo(self, project: Project | str, photo: Photo) -> Photo:
-        return request(
-            json={"photo": photo.dict(include={"coordinates", "uri", "captured_at"})}
-        )
+        photo_dict = photo.dict(include={"coordinates", "uri", "captured_at"})
+        # Convert `coordinates` from list to dict or omit
+        if coords := photo_dict.pop("coordinates", None):
+            photo_dict["coordinates"] = coords[0]
+        return request(json={"photo": photo_dict})
 
     @get("/projects/{project}/assigned_users", List[User])
     def list_assigned_users(
