@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import io
 from typing import List, Optional
 
 from companycam.manager import BaseManager
@@ -161,8 +163,14 @@ class ProjectsManager(BaseManager):
         return request(params=query)
 
     @post("/projects/{project}/documents", Document)
-    def create_document(self, project: Project | str, document: Document) -> Document:
-        return request(json={"document": document.dict(include={"name", "attachment"})})
+    def create_document(
+        self, project: Project | str, file: io.BufferedReader, encoding: str = "utf-8"
+    ) -> Document:
+        document = {
+            "name": file.name,
+            "attachment": base64.b64encode(file.read()).decode(encoding),
+        }
+        return request(json={"document": document})
 
     @get("/projects/{project}/comments", List[Comment])
     def list_comments(

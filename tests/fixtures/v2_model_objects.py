@@ -1,4 +1,23 @@
+import io
+
 from companycam.v2 import models
+
+
+class TestFile(io.BytesIO):
+    """So when passed to BufferedReader it has a `name` attribute to access"""
+
+    name: str = "test.txt"
+
+
+TAG = models.Tag(
+    id="48892885",
+    company_id="8292212",
+    display_value="Front Side",
+    value="front side",
+    created_at=1152230608,
+    updated_at=1152230700,
+)
+
 
 # Keys have same names as the keyword arguments in manager paths for easy lookup
 KWARGS = {
@@ -27,6 +46,7 @@ KWARGS = {
         created_at=1621857746,
         updated_at=1621857746,
     ),
+    "file": io.BufferedReader(TestFile(b"test document")),  # type: ignore[arg-type]
     "group": models.Group(
         id="3992883",
         company_id="8292212",
@@ -91,6 +111,7 @@ KWARGS = {
         created_at=1152230608,
         updated_at=1152230400,
     ),
+    "label": TAG.copy(deep=True),
     "photo": models.Photo(
         id="4782987471",
         company_id="8292212",
@@ -148,14 +169,7 @@ KWARGS = {
         created_at=1152230400,
         updated_at=1395792000,
     ),
-    "tag": models.Tag(
-        id="48892885",
-        company_id="8292212",
-        display_value="Front Side",
-        value="front side",
-        created_at=1152230608,
-        updated_at=1152230700,
-    ),
+    "tag": TAG.copy(deep=True),
     "user": models.User(
         id="2789583992",
         company_id="8292212",
@@ -183,5 +197,3 @@ KWARGS = {
         updated_at=81586808,
     ),
 }
-
-KWARGS["label"] = KWARGS["tag"].copy(deep=True)

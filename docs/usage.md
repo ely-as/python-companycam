@@ -26,7 +26,7 @@ api.client   api.company  api.groups   api.photos   api.projects api.tags    api
 Each manager contain methods which correspond to REST API paths in the
 [CompanyCam Core API](https://docs.companycam.com/reference):
 
-```
+```python
 >>> api.projects.
 api.projects.assign_user_to_project(   api.projects.list_assigned_users(
 api.projects.client                    api.projects.list_collaborators(
@@ -84,6 +84,17 @@ Certain API paths can accept a `str` in place of a model if that method only nee
 >>> new_comment = models.Comment(content="My comment")
 >>> api.projects.create_comment("23456789", new_comment)
 >>> api.projects.create_comment(Project(id="23456789"), new_comment)
+```
+
+### Uploading documents
+
+To upload documents use a context manager:
+
+```python
+>>> with open("path/to/myfile.txt", "rb") as f:
+        api.projects.create_document("23456789", f)
+
+Document(id='1835048', name='myfile.txt', url='https://static.companycam.com/documents/...')
 ```
 
 ## Advanced
