@@ -250,7 +250,10 @@ class GroupsManager(BaseManager):
 
     @post("/groups", Group)
     def create(self, group: Group) -> Group:
-        return request(json={"group": group.dict(include={"name", "users"})})
+        group_dict = group.dict(include={"name", "users"})
+        if users := group_dict.pop("users", None):
+            group_dict["users"] = [u["id"] for u in users if "id" in u]
+        return request(json={"group": group_dict})
 
     @get("/groups/{group}", Group)
     def retrieve(self, group: Group | str) -> Group:
@@ -258,7 +261,10 @@ class GroupsManager(BaseManager):
 
     @put("/groups/{group}", Group)
     def update(self, group: Group) -> Group:
-        return request(json={"group": group.dict(include={"name", "users"})})
+        group_dict = group.dict(include={"name", "users"})
+        if users := group_dict.pop("users", None):
+            group_dict["users"] = [u["id"] for u in users if "id" in u]
+        return request(json={"group": group_dict})
 
     @delete_("/groups/{group}", bool)
     def delete(self, group: Group | str) -> bool:
