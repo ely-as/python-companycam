@@ -21,6 +21,7 @@ TAG = models.Tag(
 
 # Keys have same names as the keyword arguments in manager paths for easy lookup
 KWARGS = {
+    "captured_at": 1152230608,
     "comment": models.Comment(
         id="4782987471",
         creator_id="2789583992",
@@ -33,6 +34,7 @@ KWARGS = {
         created_at=1152230608,
         updated_at=1152230400,
     ),
+    "coordinates": models.Coordinate(lat=-82437315.85179588, lon=80048850.74793434),
     "document": models.Document(
         id="115",
         creator_id="8675309",
@@ -170,6 +172,7 @@ KWARGS = {
         updated_at=1395792000,
     ),
     "tag": TAG.copy(deep=True),
+    "uri": "https://static.companycam.com/lambda/projects/94772883/photos/bHR0.jpg",
     "user": models.User(
         id="2789583992",
         company_id="8292212",

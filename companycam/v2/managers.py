@@ -11,6 +11,7 @@ from companycam.types import QueryParamTypes
 from companycam.v2.models import (
     Comment,
     Company,
+    Coordinate,
     Document,
     Group,
     Photo,
@@ -99,11 +100,16 @@ class ProjectsManager(BaseManager):
         return request(params=query)
 
     @post("/projects/{project}/photos", Photo)
-    def create_photo(self, project: Project | str, photo: Photo) -> Photo:
-        photo_dict = photo.dict(include={"coordinates", "uri", "captured_at"})
-        # Convert `coordinates` from list to dict or omit
-        if coords := photo_dict.pop("coordinates", None):
-            photo_dict["coordinates"] = coords[0]
+    def create_photo(
+        self,
+        project: Project | str,
+        uri: str,
+        captured_at: int,
+        coordinates: Optional[Coordinate] = None,
+    ) -> Photo:
+        photo_dict = {"captured_at": captured_at, "uri": uri}
+        if coordinates:
+            photo_dict["coordinates"] = coordinates.dict()
         return request(json={"photo": photo_dict})
 
     @get("/projects/{project}/assigned_users", List[User])
