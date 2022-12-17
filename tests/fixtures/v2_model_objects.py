@@ -167,7 +167,7 @@ KWARGS = {
             {"lat": -18473456.467655286, "lon": -97157675.7681222},
         ],
         primary_contact=None,
-        notepad=None,
+        notepad="Notes",
         created_at=1152230400,
         updated_at=1395792000,
     ),
