@@ -1,13 +1,11 @@
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel
-
-from companycam.models import ModelWithRequiredID
+from companycam.models import Model, ModelWithRequiredID
 
 # Components which don't reference other components, alphabetical
 
 
-class Address(BaseModel):
+class Address(Model):
     street_address_1: Optional[str]
     street_address_2: Optional[str]
     city: Optional[str]
@@ -28,7 +26,7 @@ class Comment(ModelWithRequiredID):
     updated_at: Optional[int]
 
 
-class Coordinate(BaseModel):
+class Coordinate(Model):
     lat: float
     lon: float
 
@@ -46,16 +44,16 @@ class Document(ModelWithRequiredID):
     updated_at: Optional[int]
 
 
-class Error(BaseModel):
+class Error(Model):
     errors: Optional[List[str]]
 
 
-class ImageURI(BaseModel):
+class ImageURI(Model):
     type: str
     uri: str
 
 
-class ProjectCollaborator(BaseModel):
+class ProjectCollaborator(Model):
     id: Optional[str]
     company_id: Optional[str]
     project_id: Optional[str]
@@ -72,13 +70,13 @@ class ProjectCollaborator(BaseModel):
     updated_at: Optional[int]
 
 
-class ProjectContactRequest(BaseModel):
+class ProjectContactRequest(Model):
     name: str
     email: Optional[str]
     phone_number: Optional[str]
 
 
-class ProjectContactResponse(BaseModel):
+class ProjectContactResponse(Model):
     id: Optional[str]
     project_id: Optional[str]
     name: Optional[str]
@@ -88,7 +86,7 @@ class ProjectContactResponse(BaseModel):
     updated_at: Optional[int]
 
 
-class ProjectInvitation(BaseModel):
+class ProjectInvitation(Model):
     id: Optional[str]
     project_id: Optional[str]
     invite_url: Optional[str]
@@ -108,12 +106,12 @@ class ProjectInvitation(BaseModel):
     updated_at: Optional[int]
 
 
-class ProjectIntegration(BaseModel):
+class ProjectIntegration(Model):
     type: str
     relation_id: str
 
 
-class ProjectNotepad(BaseModel):
+class ProjectNotepad(Model):
     notepad: str
 
 
