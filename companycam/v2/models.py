@@ -52,6 +52,15 @@ class ImageURI(Model):
     type: str
     uri: str
 
+    def __init__(self, *args, **kwargs) -> None:
+        if "url" in kwargs and "uri" not in kwargs:
+            kwargs["uri"] = kwargs.pop("url")
+        super().__init__(*args, **kwargs)
+
+    @property
+    def url(self) -> str:
+        return self.uri
+
 
 class ProjectCollaborator(Model):
     id: Optional[str]
@@ -191,7 +200,13 @@ class Photo(ModelWithRequiredID):
         if coordinates := kwargs.get("coordinates"):
             if isinstance(coordinates, dict):
                 kwargs["coordinates"] = [coordinates]
+        if "uris" in kwargs and "urls" not in kwargs:
+            kwargs["urls"] = kwargs.pop("uris")
         super().__init__(*args, **kwargs)
+
+    @property
+    def uris(self) -> Optional[List[ImageURI]]:
+        return self.urls
 
 
 class Project(ModelWithRequiredID):
