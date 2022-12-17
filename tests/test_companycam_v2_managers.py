@@ -1,5 +1,6 @@
 import json
 
+import jsonschema
 import pytest
 from pytest_mock import MockerFixture
 
@@ -92,10 +93,5 @@ def test_all_manager_paths_generate_correct_JSON_in_requests_as_per_OpenAPI_spec
         patch = utils.ClientSendPatcher(mocker)
         path.call(**path.filter_kwargs(**v2_model_objects.KWARGS))
         data = json.loads(patch.request.content)
-        # Does not check deeper than one object
-        for key in data.keys():
-            if key not in schema["properties"]:
-                pytest.fail(
-                    f"'{path.manager.__name__}.{path.func_name}' generates incorrect "
-                    f"JSON for requests, see schema: {schema}"
-                )
+        schema["components"] = OPENAPI.spec["components"]
+        jsonschema.validate(instance=data, schema=schema)
