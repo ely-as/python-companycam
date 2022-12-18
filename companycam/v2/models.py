@@ -52,14 +52,8 @@ class ImageURI(Model):
     type: str
     uri: str
 
-    def __init__(self, *args, **kwargs) -> None:
-        if "url" in kwargs and "uri" not in kwargs:
-            kwargs["uri"] = kwargs.pop("url")
-        super().__init__(*args, **kwargs)
-
-    @property
-    def url(self) -> str:
-        return self.uri
+    class Config:
+        assignment_aliases = {"url": "uri"}
 
 
 class ProjectCollaborator(Model):
@@ -196,17 +190,15 @@ class Photo(ModelWithRequiredID):
     created_at: Optional[int]
     updated_at: Optional[int]
 
+    class Config:
+        assignment_aliases = {"uris": "urls"}
+
     def __init__(self, *args, **kwargs) -> None:
+        # Coerce `coordinates` to a list if dict is received in HTTP response
         if coordinates := kwargs.get("coordinates"):
             if isinstance(coordinates, dict):
                 kwargs["coordinates"] = [coordinates]
-        if "uris" in kwargs and "urls" not in kwargs:
-            kwargs["urls"] = kwargs.pop("uris")
         super().__init__(*args, **kwargs)
-
-    @property
-    def uris(self) -> Optional[List[ImageURI]]:
-        return self.urls
 
 
 class Project(ModelWithRequiredID):
