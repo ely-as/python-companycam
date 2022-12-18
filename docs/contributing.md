@@ -42,11 +42,18 @@ tox -e py38-pytest
 
 ### Apply formatting
 
-The `tox` command will only check formatting.
+This project uses the formatters [black](https://github.com/psf/black) and
+[isort](https://pycqa.github.io/isort/).
 
-To apply formatting, install `black` and `isort`:
+By default the `tox` command will only check formatting i.e. the `lint` environment,
+which is included in the default environment list, will only execute black and isort
+with the `--check` and `--diff` flags.
+
+To apply formatting:
 ```sh
-python -m pip install black isort
-black .
-isort .
+tox -e format
+```
+
+```sh
+git submodule foreach git pull
 ```
