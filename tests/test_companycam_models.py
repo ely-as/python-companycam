@@ -1,5 +1,7 @@
 import typing
 
+from pytest_mock import MockerFixture
+
 from companycam import models
 
 
@@ -61,3 +63,31 @@ def test_Model_with_assignment_aliases_outputs_using_original_field_names() -> N
     dict_ = obj.dict()
     assert "name" in dict_
     assert "first_name" not in dict_
+
+
+def test_Model_dict_defaults_exclude_none_to_True(mocker: MockerFixture) -> None:
+    mock = mocker.patch("pydantic.BaseModel.dict")
+    obj = ExampleModel(name="Name", address="Address")
+    obj.dict()
+    assert "exclude_none" in mock.call_args.kwargs
+    assert mock.call_args.kwargs["exclude_none"] is True
+
+
+def test_Model_dict_can_set_exclude_none_to_False(mocker: MockerFixture) -> None:
+    mock = mocker.patch("pydantic.BaseModel.dict")
+    obj = ExampleModel(name="Name", address="Address")
+    obj.dict(exclude_none=False)
+    assert "exclude_none" in mock.call_args.kwargs
+    assert mock.call_args.kwargs["exclude_none"] is False
+
+
+def test_Model_dict_exclude_none_ensures_None_values_are_excluded() -> None:
+    obj = ExampleModel(name="Name", address="Address")
+    dict_ = obj.dict()
+    assert "email" not in dict_
+
+
+def test_Model_dict_exclude_none_can_be_overridden() -> None:
+    obj = ExampleModel(name="Name", address="Address")
+    dict_ = obj.dict(exclude_none=False)
+    assert "email" in dict_

@@ -37,10 +37,8 @@ class Model(pydantic.BaseModel):
             name = assignment_aliases[name]
         return super().__setattr__(name, value)
 
-    def dict(self, **kwargs) -> typing.Dict[str, typing.Any]:
-        # Default exclude_none to True rather than False
-        kwargs["exclude_none"] = kwargs.pop("exclude_none", True)
-        return super().dict(**kwargs)
+    def dict(self, exclude_none: bool = True, **kwargs) -> typing.Dict[str, typing.Any]:
+        return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 class ModelWithRequiredID(Model):
