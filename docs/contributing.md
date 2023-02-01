@@ -54,6 +54,8 @@ To apply formatting:
 tox -e format
 ```
 
+### Update Git submodules
+
 ```sh
 git submodule foreach git pull
 ```
