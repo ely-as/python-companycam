@@ -145,10 +145,8 @@ class ProjectsManager(BaseManager):
         return request(params=query)
 
     @post("/projects/{project}/invitations", ProjectInvitation)
-    def create_invitation(
-        self, project: Project | str, invitation: ProjectInvitation
-    ) -> ProjectInvitation:
-        return request(json=invitation.dict(include={"permissions"}))
+    def create_invitation(self, project: Project | str) -> ProjectInvitation:
+        return request()
 
     @get("/projects/{project}/labels", List[Tag])
     def list_labels(

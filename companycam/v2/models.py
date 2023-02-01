@@ -61,13 +61,6 @@ class ProjectCollaborator(Model):
     company_id: Optional[str]
     project_id: Optional[str]
     project_invitation_id: Optional[str]
-    permissions: Optional[
-        List[
-            Literal[
-                "can_view_content", "can_add_content", "can_comment", "can_use_todos"
-            ]
-        ]
-    ]
     accepted_at: Optional[int]
     created_at: Optional[int]
     updated_at: Optional[int]
@@ -97,13 +90,6 @@ class ProjectInvitation(Model):
     accepted_at: Optional[int]
     accepted_by_id: Optional[str]
     expires_at: Optional[int]
-    permissions: Optional[
-        List[
-            Literal[
-                "can_view_content", "can_add_content", "can_comment", "can_use_todos"
-            ]
-        ]
-    ]
     creator_id: Optional[str]
     created_at: Optional[int]
     updated_at: Optional[int]
