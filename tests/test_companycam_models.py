@@ -31,18 +31,18 @@ def test_Model_with_assignment_aliases_can_construct_with_original_field_names()
 
 
 def test_Model_with_assignment_aliases_can_construct_with_aliased_field_names() -> None:
-    assert ExampleModelWithAlias(first_name="Name", address="Address")
+    assert ExampleModelWithAlias(first_name="Name", address="Address")  # type: ignore
 
 
 def test_Model_fields_with_assignment_aliases_can_be_accessed_by_original_name() -> None:  # fmt: skip
     assert ExampleModelWithAlias(name="Name", address="Address").name == "Name"
-    assert ExampleModelWithAlias(first_name="Name", address="Address").name == "Name"
+    assert ExampleModelWithAlias(first_name="Name", address="Address").name == "Name"  # type: ignore
 
 
 def test_Model_fields_with_assignment_aliases_can_be_accessed_by_alias() -> None:
     assert ExampleModelWithAlias(name="Name", address="Address").first_name == "Name"
     assert (
-        ExampleModelWithAlias(first_name="Name", address="Address").first_name == "Name"
+        ExampleModelWithAlias(first_name="Name", address="Address").first_name == "Name"  # type: ignore
     )
 
 
@@ -59,7 +59,7 @@ def test_Model_fields_with_assignment_aliases_can_be_set_by_alias() -> None:
 
 
 def test_Model_with_assignment_aliases_outputs_using_original_field_names() -> None:
-    obj = ExampleModelWithAlias(first_name="Name", address="Address")
+    obj = ExampleModelWithAlias(first_name="Name", address="Address")  # type: ignore
     dict_ = obj.dict()
     assert "name" in dict_
     assert "first_name" not in dict_
