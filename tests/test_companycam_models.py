@@ -26,7 +26,7 @@ def test_Model_handles_unset_assignment_aliases() -> None:
     obj.name = "First name"
 
 
-def test_Model_with_assignment_aliases_can_construct_with_original_field_names() -> None:
+def test_Model_with_assignment_aliases_can_construct_with_original_field_names() -> None:  # fmt: skip
     assert ExampleModelWithAlias(name="Name", address="Address")
 
 
@@ -34,7 +34,7 @@ def test_Model_with_assignment_aliases_can_construct_with_aliased_field_names() 
     assert ExampleModelWithAlias(first_name="Name", address="Address")
 
 
-def test_Model_fields_with_assignment_aliases_can_be_accessed_by_original_name() -> None:
+def test_Model_fields_with_assignment_aliases_can_be_accessed_by_original_name() -> None:  # fmt: skip
     assert ExampleModelWithAlias(name="Name", address="Address").name == "Name"
     assert ExampleModelWithAlias(first_name="Name", address="Address").name == "Name"
 
