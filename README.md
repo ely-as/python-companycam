@@ -1,6 +1,6 @@
 # python-companycam
 
-![Test](https://github.com/ely-as/python-companycam/workflows/Test/badge.svg)
+[![Test](https://github.com/ely-as/python-companycam/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ely-as/python-companycam/actions/workflows/test.yml)
 ![Python](https://img.shields.io/pypi/pyversions/companycam-unofficial)
 ![License](https://img.shields.io/pypi/l/companycam-unofficial)
 
