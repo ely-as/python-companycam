@@ -14,6 +14,26 @@ class Address(Model):
     country: Optional[str]
 
 
+class Checklist(ModelWithRequiredID):
+    company_id: Optional[str]
+    project_id: Optional[str]
+    name: Optional[str]
+    created_at: Optional[int]
+    updated_at: Optional[int]
+    completed_at: Optional[int]
+    creator_id: Optional[str]
+    checklist_template_id: Optional[str]
+    is_populating: Optional[bool]
+
+
+class ChecklistTemplate(ModelWithRequiredID):
+    company_id: Optional[str]
+    name: Optional[str]
+    description: Optional[str]
+    created_at: Optional[int]
+    updated_at: Optional[int]
+
+
 class Comment(ModelWithRequiredID):
     creator_id: Optional[str]
     creator_type: Optional[str]

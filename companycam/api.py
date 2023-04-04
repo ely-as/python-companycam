@@ -82,5 +82,6 @@ class API(object):
             self.projects = v2.managers.ProjectsManager(self.client)
             self.photos = v2.managers.PhotosManager(self.client)
             self.tags = v2.managers.TagsManager(self.client)
+            self.templates = v2.managers.TemplatesManager(self.client)
             self.groups = v2.managers.GroupsManager(self.client)
             self.webhooks = v2.managers.WebhooksManager(self.client)
