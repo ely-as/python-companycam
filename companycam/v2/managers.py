@@ -9,6 +9,8 @@ from companycam.manager import delete as delete_
 from companycam.manager import get, post, put, request
 from companycam.types import QueryParamTypes
 from companycam.v2.models import (
+    Checklist,
+    ChecklistTemplate,
     Comment,
     Company,
     Coordinate,
@@ -91,6 +93,22 @@ class ProjectsManager(BaseManager):
 
     @put("/projects/{project}/restore", Project)
     def restore(self, project: Project | str) -> Project:
+        return request()
+
+    @get("/projects/{project}/checklists", List[Checklist])
+    def list_checklists(self, project: Project | str) -> List[Checklist]:
+        return request()
+
+    @post("/projects/{project}/checklists", Checklist)
+    def create_checklist(
+        self, project: Project | str, checklist_template: ChecklistTemplate
+    ) -> Checklist:
+        return request(json={"checklist_template_id": checklist_template.id})
+
+    @get("/projects/{project}/checklists/{checklist}", Checklist)
+    def retrieve_checklist(
+        self, project: Project | str, checklist: Checklist | str
+    ) -> Checklist:
         return request()
 
     @get("/projects/{project}/photos", List[Photo])
@@ -244,6 +262,12 @@ class TagsManager(BaseManager):
 
     @delete_("/tags/{tag}", bool)
     def delete(self, tag: Tag | str) -> bool:
+        return request()
+
+
+class TemplatesManager(BaseManager):
+    @get("/templates/checklists", List[ChecklistTemplate])
+    def list_checklists(self) -> List[ChecklistTemplate]:
         return request()
 
 
