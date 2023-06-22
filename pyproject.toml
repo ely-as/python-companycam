@@ -41,12 +41,30 @@ readme = {file = ["README.md"], content-type = "text/markdown"}
 where = ["."]
 include = ["companycam"]
 
+[project.optional-dependencies]
+test = [
+    "black",
+    "flake8",
+    "isort",
+    "jsonschema",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "pyyaml",
+    "types-PyYAML",
+    "types-mock",
+    "types-setuptools",
+]
+
 [tool.coverage.run]
 omit = [
     "tests/*",
 ]
 
 [tool.mypy]
+plugins = "pydantic.mypy"
+ignore_missing_imports = true
 warn_unused_configs = true
 files = [
     "companycam/**/*.py",

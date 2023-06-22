@@ -17,9 +17,9 @@ source venv/bin/activate
 python -m pip install --upgrade pip
 ```
 
-Install the package:
+Install the package in editable mode with the optional `test` dependencies:
 ```sh
-python -m pip install -e .
+python -m pip install -e ".[test]"
 ```
 
 ### Run tests
