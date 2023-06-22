@@ -44,14 +44,13 @@ include = ["companycam"]
 [project.optional-dependencies]
 test = [
     "black",
-    "flake8",
-    "isort",
     "jsonschema",
     "mypy",
     "pytest",
     "pytest-cov",
     "pytest-mock",
     "pyyaml",
+    "ruff",
     "types-PyYAML",
     "types-mock",
     "types-setuptools",
@@ -70,3 +69,22 @@ files = [
     "companycam/**/*.py",
     "tests/**/*.py",
 ]
+
+[tool.ruff]
+select = [
+    "F",     # Pyflakes
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "B",     # flake8-bugbear
+    "C",     # flake8-comprehensions and mccabe
+]
+fixable = [
+    "I",     # isort
+]
+ignore = [
+    "E501",  # line too long
+]
+
+[tool.ruff.mccabe]
+max-complexity = 5

@@ -4,9 +4,8 @@ import base64
 import io
 from typing import List, Optional
 
-from companycam.manager import BaseManager
+from companycam.manager import BaseManager, get, post, put, request
 from companycam.manager import delete as delete_
-from companycam.manager import get, post, put, request
 from companycam.types import QueryParamTypes
 from companycam.v2.models import (
     Comment,
