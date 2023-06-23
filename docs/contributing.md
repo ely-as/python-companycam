@@ -24,7 +24,7 @@ python -m pip install -e ".[test]"
 
 ### Run tests
 
-Install [tox](https://tox.wiki/en/latest/):
+Install [tox](https://tox.wiki):
 ```sh
 python -m pip install tox
 ```
