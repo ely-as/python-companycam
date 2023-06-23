@@ -17,9 +17,9 @@ source venv/bin/activate
 python -m pip install --upgrade pip
 ```
 
-Install the package:
+Install the package in editable mode with the optional `test` dependencies:
 ```sh
-python -m pip install -e .
+python -m pip install -e ".[test]"
 ```
 
 ### Run tests
@@ -34,22 +34,12 @@ Run tox:
 tox
 ```
 
-Run specific tox environments (if needed):
-```sh
-tox -e flake8
-tox -e py38-pytest
-```
-
 ### Apply formatting
 
-This project uses the formatters [black](https://github.com/psf/black) and
-[isort](https://pycqa.github.io/isort/).
+This project uses [black](https://github.com/psf/black) and
+[isort](https://pycqa.github.io/isort/) formatting.
 
-By default the `tox` command will only check formatting i.e. the `lint` environment,
-which is included in the default environment list, will only execute black and isort
-with the `--check` and `--diff` flags.
-
-To apply formatting:
+By default the `tox` command will only check formatting. To apply formatting:
 ```sh
 tox -e format
 ```

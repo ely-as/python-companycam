@@ -1,3 +1,90 @@
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "companycam-unofficial"
+authors = [
+    {name = "elyas", email = "elyas@ely.as"},
+]
+description = "Python client and bindings for CompanyCam API."
+requires-python = ">=3.8"
+keywords = ["python", "companycam"]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Typing :: Typed",
+]
+dependencies = [
+    "httpx<1",
+    "pydantic<2",
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+"Issue Tracker" = "https://github.com/ely-as/python-companycam/issues"
+"Source" = "https://github.com/ely-as/python-companycam"
+
+[tool.setuptools.dynamic]
+version = {attr = "companycam.__version__"}
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["companycam"]
+
+[project.optional-dependencies]
+test = [
+    "black",
+    "jsonschema",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "pyyaml",
+    "ruff",
+    "types-PyYAML",
+    "types-mock",
+    "types-setuptools",
+]
+
+[tool.coverage.run]
+omit = [
+    "tests/*",
+]
+
+[tool.mypy]
+plugins = "pydantic.mypy"
+ignore_missing_imports = true
+warn_unused_configs = true
+files = [
+    "companycam/**/*.py",
+    "tests/**/*.py",
+]
+
+[tool.ruff]
+select = [
+    "F",     # Pyflakes
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "B",     # flake8-bugbear
+    "C",     # flake8-comprehensions and mccabe
+]
+fixable = [
+    "I",     # isort
+]
+ignore = [
+    "E501",  # line too long
+]
+
+[tool.ruff.mccabe]
+max-complexity = 5

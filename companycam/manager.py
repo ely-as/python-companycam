@@ -36,7 +36,7 @@ def get_string_from_object(obj: Union[BaseModel, str]) -> str:
     if isinstance(obj, str):
         return obj
     elif isinstance(obj, BaseModel) and hasattr(obj, "id"):
-        return getattr(obj, "id")
+        return obj.id
     elif isinstance(obj, BaseModel):
         raise ValueError(f"Failed to extract 'id' from {obj}: Model has no 'id' field")
     else:

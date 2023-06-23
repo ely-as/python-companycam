@@ -67,7 +67,7 @@ def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_i
 @pytest.mark.parametrize(
     "component_name,property_names",
     [
-        (name, [p for p in fields["properties"]])
+        (name, list(fields["properties"]))
         for name, fields in OPENAPI.component_schemas.items()
     ],
 )
@@ -75,7 +75,7 @@ def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
     component_name: str, property_names: List[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
-    assert property_names == [p for p in model.schema()["properties"]]
+    assert property_names == list(model.schema()["properties"])
 
 
 @pytest.mark.parametrize(

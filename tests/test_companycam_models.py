@@ -20,8 +20,8 @@ def test_Model_handles_unset_assignment_aliases() -> None:
     # __init__
     obj = ExampleModel(name="Name", address="Address")
     # __getattribute__
-    obj.name
-    obj.address
+    obj.name  # noqa: B018
+    obj.address  # noqa: B018
     # __setattr__
     obj.name = "First name"
 
