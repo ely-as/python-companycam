@@ -63,20 +63,15 @@ class BaseRequest(object):
     return_type: type
     url: str
 
-    def __init__(self, url: str, return_type: type) -> None:
+    def __init__(self, url: str) -> None:
         super().__init__()
         self.url = url
-        # It would be cleaner to get the return_type from the decorated method e.g.
-        # `decorated_method.__annotations__.get("return", Any)`, but in the future this
-        # may only contain strings rather than actual types due to PEP 563 (unless it
-        # is superceded by PEP 649). See:
-        # - https://peps.python.org/pep-0563/
-        # - https://peps.python.org/pep-0649/
-        self.return_type = return_type
 
     def __call__(self, decorated_method: Callable[..., Any]) -> Callable[..., Any]:
         # store decorator object for introspection of decorated_method (e.g. unit tests)
         decorated_method._decorated_by = self  # type: ignore[attr-defined]
+        # store return_type
+        self.return_type = decorated_method.__annotations__.get("return")  # type: ignore[assignment]
 
         @functools.wraps(decorated_method)
         def wrapper(obj, *args, **kwargs):
