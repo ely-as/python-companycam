@@ -1,5 +1,3 @@
-import typing
-
 import pytest
 
 from companycam import exceptions
@@ -16,6 +14,6 @@ def test_subclasses_of_BaseCompanyCamException_have_unique_status_codes() -> Non
 
 @pytest.mark.parametrize("cls", exceptions.BaseCompanyCamException.__subclasses__())
 def test_subclasses_of_BaseCompanyCamException_have_no_subclasses(
-    cls: typing.Type[exceptions.BaseCompanyCamException],
+    cls: type[exceptions.BaseCompanyCamException],
 ) -> None:
     assert len(cls.__subclasses__()) == 0

@@ -1,17 +1,14 @@
-from __future__ import annotations
-
 import functools
 import inspect
 import logging
+from collections.abc import Callable
 from string import Formatter
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Literal, Type, Union
+from typing import Any, Literal
 
+import httpx
 from pydantic import BaseModel, ValidationError, parse_obj_as
 
 from companycam.client import LazyClient
-
-if TYPE_CHECKING:
-    import httpx
 
 formatter = Formatter()
 logger = logging.getLogger(__name__)
@@ -24,7 +21,7 @@ class BaseManager(object):
         self.client = client
 
 
-def field_names_in_format_string(format_string: str) -> List[str]:
+def field_names_in_format_string(format_string: str) -> list[str]:
     """For a given format string return the field_name's
 
     More on format strings: https://docs.python.org/3/library/string.html#formatstrings
@@ -32,7 +29,7 @@ def field_names_in_format_string(format_string: str) -> List[str]:
     return [x[1] for x in formatter.parse(format_string) if x[1]]
 
 
-def get_string_from_object(obj: Union[BaseModel, str]) -> str:
+def get_string_from_object(obj: BaseModel | str) -> str:
     if isinstance(obj, str):
         return obj
     elif isinstance(obj, BaseModel) and hasattr(obj, "id"):
@@ -43,7 +40,7 @@ def get_string_from_object(obj: Union[BaseModel, str]) -> str:
         raise TypeError()
 
 
-def format_url(url: str, kwargs: Dict) -> str:
+def format_url(url: str, kwargs: dict) -> str:
     expected_fields = field_names_in_format_string(url)
     url_kwargs = {}
     for field in expected_fields:
@@ -63,23 +60,18 @@ def request(**request_dict):
 
 class BaseRequest(object):
     method: Literal["get", "post", "put", "delete"]
-    return_type: Type
+    return_type: type
     url: str
 
-    def __init__(self, url: str, return_type: Type) -> None:
+    def __init__(self, url: str) -> None:
         super().__init__()
         self.url = url
-        # It would be cleaner to get the return_type from the decorated method e.g.
-        # `decorated_method.__annotations__.get("return", Any)`, but in the future this
-        # may only contain strings rather than actual types due to PEP 563 (unless it
-        # is superceded by PEP 649). See:
-        # - https://peps.python.org/pep-0563/
-        # - https://peps.python.org/pep-0649/
-        self.return_type = return_type
 
     def __call__(self, decorated_method: Callable[..., Any]) -> Callable[..., Any]:
         # store decorator object for introspection of decorated_method (e.g. unit tests)
         decorated_method._decorated_by = self  # type: ignore[attr-defined]
+        # store return_type
+        self.return_type = decorated_method.__annotations__.get("return")  # type: ignore[assignment]
 
         @functools.wraps(decorated_method)
         def wrapper(obj, *args, **kwargs):

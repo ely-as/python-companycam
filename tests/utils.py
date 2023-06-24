@@ -4,6 +4,7 @@ import json
 import re
 import types
 import typing
+from collections.abc import Callable, Iterable
 from functools import cached_property
 from inspect import getmembers, isclass, isfunction, signature
 
@@ -24,19 +25,19 @@ if typing.TYPE_CHECKING:
 # reliable coverage
 
 
-def get_managers_from_module(managers: types.ModuleType) -> typing.Dict:
+def get_managers_from_module(managers: types.ModuleType) -> dict:
     return dict(
         getmembers(managers, lambda m: isclass(m) and m.__module__ == managers.__name__)
     )
 
 
-def get_models_from_module(models: types.ModuleType) -> typing.Dict:
+def get_models_from_module(models: types.ModuleType) -> dict:
     return dict(
         getmembers(models, lambda m: isclass(m) and m.__module__ == models.__name__)
     )
 
 
-def get_paths_from_manager_cls(manager: BaseManager) -> typing.Dict:
+def get_paths_from_manager_cls(manager: BaseManager) -> dict:
     return dict(
         getmembers(manager, lambda m: isfunction(m) and hasattr(m, "_decorated_by"))
     )
@@ -50,7 +51,7 @@ def clean_url(url: str) -> str:
     return url.split("?")[0].split("#")[0]
 
 
-def get_2xx_status_code(status_codes: typing.Iterable[typing.Union[int, str]]) -> str:
+def get_2xx_status_code(status_codes: Iterable[int | str]) -> str:
     """Get the 2xx status code from an iterable of status codes (expects one, only)."""
     codes_2xx = [str(c) for c in status_codes if str(c).startswith("2")]
     if len(codes_2xx) > 1:
@@ -90,7 +91,7 @@ def get_name_from_ref(uri: str) -> str:
     return uri.split("/")[-1]
 
 
-def load_openapi_spec() -> typing.Dict:
+def load_openapi_spec() -> dict:
     with open(paths.OPENAPI_YAML, "r") as f:
         return yaml.safe_load(f)
 
@@ -117,7 +118,7 @@ def normalize_url(url: str) -> str:
 
 
 class OpenAPIPath(object):
-    def __init__(self, method: str, url: str, path_dict: typing.Dict) -> None:
+    def __init__(self, method: str, url: str, path_dict: dict) -> None:
         self.method = method
         self.url = url
         self.dict = path_dict
@@ -127,37 +128,37 @@ class OpenAPIPath(object):
         return normalize_url(self.url)
 
     @cached_property
-    def parameters(self) -> typing.List[typing.Dict]:
+    def parameters(self) -> list[dict]:
         return self.dict.get("parameters", [])
 
     @cached_property
-    def query_parameters(self) -> typing.List[typing.Dict]:
+    def query_parameters(self) -> list[dict]:
         return [p for p in self.parameters if p.get("in") == "query"]
 
     @cached_property
-    def request_json_schema(self) -> typing.Dict:
+    def request_json_schema(self) -> dict:
         try:
             return self.dict["requestBody"]["content"]["application/json"]["schema"]
         except KeyError:
             return {}
 
     @cached_property
-    def responses(self) -> typing.Dict[str, typing.Dict]:
+    def responses(self) -> dict[str, dict]:
         return self.dict["responses"]
 
     @cached_property
-    def response_2xx(self) -> typing.Dict:
+    def response_2xx(self) -> dict:
         return self.responses[self.status_code_2xx]
 
     @cached_property
-    def response_json_schema(self) -> typing.Dict:
+    def response_json_schema(self) -> dict:
         try:
             return self.response_2xx["content"]["application/json"]["schema"]
         except KeyError:
             return {}
 
     @cached_property
-    def response_json_component(self) -> typing.Optional[str]:
+    def response_json_component(self) -> str | None:
         """Find $ref in schema and convert to component name. Can implement a recursive
         key search if we need to handle responses more complicated than objects and
         lists of objects.
@@ -196,11 +197,11 @@ class OpenAPI(object):
             )
 
     @property
-    def component_schemas(self) -> typing.Dict:
+    def component_schemas(self) -> dict:
         return self.spec["components"]["schemas"]
 
     @cached_property
-    def paths(self) -> typing.List[OpenAPIPath]:
+    def paths(self) -> list[OpenAPIPath]:
         return [
             OpenAPIPath(method, url, path_dict)
             for url, methods in self.spec["paths"].items()
@@ -253,7 +254,7 @@ class ClientSendPatcher(object):
 
 class ManagerPath(object):
     def __init__(
-        self, func: typing.Callable[..., typing.Any], manager: typing.Type[BaseManager]
+        self, func: Callable[..., typing.Any], manager: type[BaseManager]
     ) -> None:
         self.func = func
         self.func_name = func.__name__
@@ -269,7 +270,7 @@ class ManagerPath(object):
         result = getattr(manager_obj, self.func_name)(*args, **kwargs)
         return result
 
-    def filter_kwargs(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
+    def filter_kwargs(self, **kwargs: typing.Any) -> dict[str, typing.Any]:
         """Filter out any kwargs which are not valid func parameters"""
         return {k: v for k, v in kwargs.items() if k in self.func_parameters}
 
@@ -280,7 +281,7 @@ class ClientTestHelper(object):
         self.models = get_managers_from_module(models)
 
     @cached_property
-    def manager_paths(self) -> typing.List[ManagerPath]:
+    def manager_paths(self) -> list[ManagerPath]:
         return [
             ManagerPath(func, manager)
             for manager in self.managers.values()

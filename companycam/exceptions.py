@@ -14,8 +14,6 @@ except companycam.Forbidden as exc:
 The class names, status codes and docstrings used for subclasses of
 `BaseCompanyCamException` are based on: https://docs.companycam.com/reference/codes.
 """
-from typing import Dict, Type
-
 import httpx
 
 
@@ -27,7 +25,7 @@ class BaseCompanyCamException(httpx.HTTPStatusError):
     status_code: int
 
 
-def map_status_codes_to_exceptions() -> Dict[int, Type[BaseCompanyCamException]]:
+def map_status_codes_to_exceptions() -> dict[int, type[BaseCompanyCamException]]:
     # Using `__subclasses__()` relies on all subclasses being defined in this file
     return {exc.status_code: exc for exc in BaseCompanyCamException.__subclasses__()}
 
