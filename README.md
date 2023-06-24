@@ -1,10 +1,10 @@
 # python-companycam
 
 [![Test](https://github.com/ely-as/python-companycam/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ely-as/python-companycam/actions/workflows/test.yml)
+![Coverage](https://cov.ely.as/github/ely-as/python-companycam/main/badge.svg)
 [![Version](https://img.shields.io/pypi/v/companycam-unofficial)](https://pypi.org/project/companycam-unofficial/)
-![License](https://img.shields.io/pypi/l/companycam-unofficial)
-
 ![Python](https://img.shields.io/pypi/pyversions/companycam-unofficial)
+![License](https://img.shields.io/pypi/l/companycam-unofficial)
 
 ## Installation
 

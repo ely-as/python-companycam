@@ -47,7 +47,7 @@ test = [
     "jsonschema",
     "mypy",
     "pytest",
-    "pytest-cov",
+    "pytest-cov>=4.1",
     "pytest-mock",
     "pyyaml",
     "ruff",
