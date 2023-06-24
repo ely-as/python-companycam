@@ -51,6 +51,7 @@ test = [
     "pytest-mock",
     "pyyaml",
     "ruff",
+    "types-jsonschema",
     "types-PyYAML",
     "types-mock",
     "types-setuptools",
@@ -63,7 +64,6 @@ omit = [
 
 [tool.mypy]
 plugins = "pydantic.mypy"
-ignore_missing_imports = true
 warn_unused_configs = true
 files = [
     "companycam/**/*.py",
