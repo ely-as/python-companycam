@@ -41,6 +41,9 @@ readme = {file = ["README.md"], content-type = "text/markdown"}
 where = ["."]
 include = ["companycam"]
 
+[tool.setuptools.package-data]
+companycam = ["py.typed"]
+
 [project.optional-dependencies]
 test = [
     "black",
