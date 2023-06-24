@@ -17,7 +17,7 @@ import companycam
 from . import paths
 
 if typing.TYPE_CHECKING:
-    from companycam.managers import BaseManager
+    from companycam.manager import BaseManager
 
 
 # Functions which automatically discover objects which need to be tested to ensure
@@ -253,7 +253,7 @@ class ClientSendPatcher(object):
 
 class ManagerPath(object):
     def __init__(
-        self, func: typing.Callable[..., typing.Any], manager: BaseManager
+        self, func: typing.Callable[..., typing.Any], manager: typing.Type[BaseManager]
     ) -> None:
         self.func = func
         self.func_name = func.__name__
