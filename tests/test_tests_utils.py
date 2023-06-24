@@ -1,4 +1,4 @@
-import typing
+from collections.abc import Iterable
 
 import pytest
 
@@ -28,7 +28,7 @@ def test_clean_url_returns_expected_value(url: str, expected_output: str) -> Non
     ],
 )
 def test_get_2xx_status_code_returns_expected_value(
-    status_codes: typing.Iterable[typing.Union[int, str]], expected_output: str
+    status_codes: Iterable[int | str], expected_output: str
 ) -> None:
     assert utils.get_2xx_status_code(status_codes) == expected_output
 

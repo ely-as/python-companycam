@@ -1,6 +1,6 @@
 import collections
 import re
-import typing
+from collections.abc import Mapping
 
 
 def transform_postman_url(url: str) -> str:  # pragma: no cover
@@ -8,14 +8,14 @@ def transform_postman_url(url: str) -> str:  # pragma: no cover
 
 
 def transform_postman_headers(  # pragma: no cover
-    header: typing.Mapping,
-) -> typing.Dict:
+    header: Mapping,
+) -> dict:
     return {h["key"]: h["value"] for h in header}
 
 
 def transform_postman_collection(  # pragma: no cover
-    data: typing.Mapping,
-) -> typing.Dict:
+    data: Mapping,
+) -> dict:
     # Flatten the data for easy iteration
     flattened_data = [
         (path["request"], response)
@@ -25,7 +25,7 @@ def transform_postman_collection(  # pragma: no cover
         if str(response["code"]).startswith("2")
     ]
     # Rewrite the data into return dict
-    return_dict: typing.Dict = collections.defaultdict(dict)
+    return_dict: dict = collections.defaultdict(dict)
     for request, response in flattened_data:
         url = transform_postman_url(request["url"]["raw"])
         method = request["method"].lower()

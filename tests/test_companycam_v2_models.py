@@ -1,5 +1,3 @@
-from typing import Dict, List, Type
-
 import pytest
 from pydantic import BaseModel
 
@@ -13,7 +11,7 @@ CLIENT_V2 = utils.ClientTestHelper(
 OPENAPI = utils.OpenAPI()
 
 
-def get_model_from_component_name(component_name: str) -> Type[BaseModel]:
+def get_model_from_component_name(component_name: str) -> type[BaseModel]:
     """Get pydantic model from the name of an OpenAPI Component or skip test if not found."""
     try:
         return CLIENT_V2.models[component_name]
@@ -24,8 +22,8 @@ def get_model_from_component_name(component_name: str) -> Type[BaseModel]:
 
 
 def get_model_property_fields_from_property_name(
-    model: Type[BaseModel], property_name: str
-) -> Dict:
+    model: type[BaseModel], property_name: str
+) -> dict:
     """Get property fields from pydantic model schema or skip test if not found."""
     try:
         return model.schema()["properties"][property_name]
@@ -37,7 +35,7 @@ def get_model_property_fields_from_property_name(
 
 @pytest.mark.parametrize("name,model", CLIENT_V2.models.items())
 def test_pydantic_model_name_matches_an_OpenAPI_component(
-    name: str, model: Type[BaseModel]
+    name: str, model: type[BaseModel]
 ) -> None:
     assert model.schema()["title"] in OPENAPI.component_schemas
 
@@ -55,7 +53,7 @@ def test_OpenAPI_component_matches_a_pydantic_model(component_name: str) -> None
     ],
 )
 def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_id(
-    component_name: str, required: List[str]
+    component_name: str, required: list[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
     model_required = model.schema().get("required", [])
@@ -72,7 +70,7 @@ def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_i
     ],
 )
 def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
-    component_name: str, property_names: List[str]
+    component_name: str, property_names: list[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
     assert property_names == list(model.schema()["properties"])
@@ -87,7 +85,7 @@ def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
     ],
 )
 def test_pydantic_model_fields_have_same_type_as_OpenAPI_component_properties(
-    component_name: str, property_name: str, property_fields: Dict
+    component_name: str, property_name: str, property_fields: dict
 ) -> None:
     model = get_model_from_component_name(component_name)
     model_property_fields = get_model_property_fields_from_property_name(
@@ -116,7 +114,7 @@ def test_pydantic_model_fields_have_same_type_as_OpenAPI_component_properties(
     ],
 )
 def test_pydantic_model_Literal_fields_have_same_enum_options_as_OpenAPI_component_properties(
-    component_name: str, property_name: str, enum: List[str]
+    component_name: str, property_name: str, enum: list[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
     model_property_fields = get_model_property_fields_from_property_name(

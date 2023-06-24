@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 import typing
+from collections.abc import Generator
 
 import httpx
 
@@ -9,7 +8,7 @@ from companycam.client import LazyClient
 from companycam.exceptions import map_status_codes_to_exceptions
 
 STATUS_CODES_TO_EXCEPTIONS = map_status_codes_to_exceptions()
-SUPPORTED_VERSIONS: typing.List[str] = ["v2"]
+SUPPORTED_VERSIONS: list[str] = ["v2"]
 
 
 def raise_on_4xx_5xx(response: httpx.Response) -> None:
@@ -35,7 +34,7 @@ class BasicTokenAuth(httpx.Auth):
 
     def auth_flow(
         self, request: httpx.Request
-    ) -> typing.Generator[httpx.Request, httpx.Response, None]:
+    ) -> Generator[httpx.Request, httpx.Response, None]:
         request.headers["authorization"] = f"Bearer {self.token}"
         yield request
 

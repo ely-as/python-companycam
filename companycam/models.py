@@ -13,7 +13,7 @@ class Model(pydantic.BaseModel):
     """
 
     class Config:
-        assignment_aliases: typing.Dict[str, str]
+        assignment_aliases: dict[str, str]
 
     def __init__(self, *args, **kwargs) -> None:
         config = super().__getattribute__("__config__")
@@ -37,11 +37,11 @@ class Model(pydantic.BaseModel):
             name = assignment_aliases[name]
         return super().__setattr__(name, value)
 
-    def dict(self, exclude_none: bool = True, **kwargs) -> typing.Dict[str, typing.Any]:
+    def dict(self, exclude_none: bool = True, **kwargs) -> dict[str, typing.Any]:
         return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 class ModelWithRequiredID(Model):
     # 'id' is a required field in most models where it is a field, but we want users to
     # be able to construct model objects without an 'id' since that is set by the API
-    id: typing.Optional[str]
+    id: str | None

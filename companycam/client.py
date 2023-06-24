@@ -1,11 +1,10 @@
-from __future__ import annotations
-
 import typing
+from collections.abc import Callable, Mapping
 
 import httpx
 
-EventHook = typing.Callable[..., typing.Any]
-EventHooks = typing.Mapping[str, typing.List[EventHook]]
+EventHook = Callable[..., typing.Any]
+EventHooks = Mapping[str, list[EventHook]]
 
 
 class LazyClient(object):
@@ -25,7 +24,7 @@ class LazyClient(object):
     def __init__(
         self,
         auth: httpx.Auth | None = None,
-        headers: typing.Mapping | None = None,
+        headers: Mapping | None = None,
         event_hooks: EventHooks | None = None,
         base_url: str = "",
     ) -> None:

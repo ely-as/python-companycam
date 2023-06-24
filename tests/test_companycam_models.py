@@ -1,5 +1,3 @@
-import typing
-
 from pytest_mock import MockerFixture
 
 from companycam import models
@@ -8,7 +6,7 @@ from companycam import models
 class ExampleModel(models.Model):
     name: str
     address: str
-    email: typing.Optional[str]
+    email: str | None
 
 
 class ExampleModelWithAlias(ExampleModel):

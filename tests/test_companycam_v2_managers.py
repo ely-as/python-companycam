@@ -60,7 +60,7 @@ def test_all_manager_paths_return_same_type_as_in_OpenAPI_spec(  # noqa: C901 (c
         else:
             assert component in str(manager_path.return_type)
         if openapi_path.response_json_is_list:
-            assert "List" in str(manager_path.return_type)
+            assert "list[" in str(manager_path.return_type).lower()
 
 
 @pytest.mark.parametrize("path", CLIENT_V2.manager_paths)
