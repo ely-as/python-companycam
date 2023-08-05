@@ -1,3 +1,8 @@
+## v0.2.1 (2023-08-05)
+### Fixes
+- Fixed bug with setuptools not finding submodules
+  ([cc06fa9](https://github.com/ely-as/python-companycam/commit/cc06fa9)).
+
 ## v0.2.0 (2023-06-24)
 ### Breaking Changes
 - Dropped support for Python major versions 3.6 and 3.7. End of life for Python 3.6 was
