@@ -1,3 +1,8 @@
+## v0.2.3 (2023-11-26)
+### Fixes
+- Fixed bug where numbers are not coerced to strings in Pydantic V2
+  ([40c08d0](https://github.com/ely-as/python-companycam/commit/40c08d0)).
+
 ## v0.2.2 (2023-11-26)
 ### Features
 - Added support for Pydantic V2
