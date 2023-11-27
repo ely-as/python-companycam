@@ -6,9 +6,10 @@ from string import Formatter
 from typing import Any, Literal
 
 import httpx
-from pydantic import BaseModel, ValidationError, parse_obj_as
+from pydantic import BaseModel, ValidationError
 
 from companycam.client import LazyClient
+from companycam.utils import parse_obj_as
 
 formatter = Formatter()
 logger = logging.getLogger(__name__)
