@@ -1,3 +1,12 @@
+## v0.2.2 (2023-11-26)
+### Features
+- Added support for Pydantic V2
+  ([#18](https://github.com/ely-as/python-companycam/issues/18)) by @ely-as in
+  [#19](https://github.com/ely-as/python-companycam/pull/19)
+- Added support for Python 3.12
+  ([#20](https://github.com/ely-as/python-companycam/issues/20)) by @ely-as in
+  [#21](https://github.com/ely-as/python-companycam/pull/21)
+
 ## v0.2.1 (2023-08-05)
 ### Fixes
 - Fixed bug with setuptools not finding submodules
