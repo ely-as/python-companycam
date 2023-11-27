@@ -1,29 +1,41 @@
 from typing import Literal
 
+import pydantic
+from typing_extensions import Annotated
+
 from companycam.models import Model, ModelWithRequiredID
+from companycam.utils import PYDANTIC_VERSION
+
+if PYDANTIC_VERSION >= (2, 0, 0):
+    OptionalInt = Annotated[int | None, pydantic.Field(default=None)]
+    OptionalStr = Annotated[str | None, pydantic.Field(default=None)]
+else:
+    OptionalInt = int | None  # type: ignore[misc]
+    OptionalStr = str | None  # type: ignore[misc]
+
 
 # Components which don't reference other components, alphabetical
 
 
 class Address(Model):
-    street_address_1: str | None
-    street_address_2: str | None
-    city: str | None
-    state: str | None
-    postal_code: str | None
-    country: str | None
+    street_address_1: OptionalStr
+    street_address_2: OptionalStr
+    city: OptionalStr
+    state: OptionalStr
+    postal_code: OptionalStr
+    country: OptionalStr
 
 
 class Comment(ModelWithRequiredID):
-    creator_id: str | None
-    creator_type: str | None
-    creator_name: str | None
-    commentable_id: str | None
-    commentable_type: str | None
-    status: str | None
-    content: str | None
-    created_at: int | None
-    updated_at: int | None
+    creator_id: OptionalStr
+    creator_type: OptionalStr
+    creator_name: OptionalStr
+    commentable_id: OptionalStr
+    commentable_type: OptionalStr
+    status: OptionalStr
+    content: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class Coordinate(Model):
@@ -32,20 +44,20 @@ class Coordinate(Model):
 
 
 class Document(ModelWithRequiredID):
-    creator_id: str | None
-    creator_type: str | None
-    creator_name: str | None
-    project_id: str | None
-    name: str | None
-    url: str | None
-    content_type: str | None
-    byte_size: int | None
-    created_at: int | None
-    updated_at: int | None
+    creator_id: OptionalStr
+    creator_type: OptionalStr
+    creator_name: OptionalStr
+    project_id: OptionalStr
+    name: OptionalStr
+    url: OptionalStr
+    content_type: OptionalStr
+    byte_size: OptionalInt
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class Error(Model):
-    errors: list[str] | None
+    errors: list[str] | None = None
 
 
 class ImageURI(Model):
@@ -57,42 +69,42 @@ class ImageURI(Model):
 
 
 class ProjectCollaborator(Model):
-    id: str | None
-    company_id: str | None
-    project_id: str | None
-    project_invitation_id: str | None
-    accepted_at: int | None
-    created_at: int | None
-    updated_at: int | None
+    id: OptionalStr
+    company_id: OptionalStr
+    project_id: OptionalStr
+    project_invitation_id: OptionalStr
+    accepted_at: OptionalInt
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class ProjectContactRequest(Model):
     name: str
-    email: str | None
-    phone_number: str | None
+    email: OptionalStr
+    phone_number: OptionalStr
 
 
 class ProjectContactResponse(Model):
-    id: str | None
-    project_id: str | None
-    name: str | None
-    email: str | None
-    phone_number: str | None
-    created_at: int | None
-    updated_at: int | None
+    id: OptionalStr
+    project_id: OptionalStr
+    name: OptionalStr
+    email: OptionalStr
+    phone_number: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class ProjectInvitation(Model):
-    id: str | None
-    project_id: str | None
-    invite_url: str | None
-    status: Literal["accepted", "expired", "pending"] | None
-    accepted_at: int | None
-    accepted_by_id: str | None
-    expires_at: int | None
-    creator_id: str | None
-    created_at: int | None
-    updated_at: int | None
+    id: OptionalStr
+    project_id: OptionalStr
+    invite_url: OptionalStr
+    status: Literal["accepted", "expired", "pending"] | None = None
+    accepted_at: OptionalInt
+    accepted_by_id: OptionalStr
+    expires_at: OptionalInt
+    creator_id: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class ProjectIntegration(Model):
@@ -105,37 +117,37 @@ class ProjectNotepad(Model):
 
 
 class Tag(ModelWithRequiredID):
-    company_id: str | None
-    display_value: str | None
-    value: str | None
-    created_at: int | None
-    updated_at: int | None
+    company_id: OptionalStr
+    display_value: OptionalStr
+    value: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class Webhook(ModelWithRequiredID):
-    company_id: str | None
-    url: str | None
-    scopes: list[str] | None
-    token: str | None
-    enabled: bool | None
-    created_at: int | None
-    updated_at: int | None
+    company_id: OptionalStr
+    url: OptionalStr
+    scopes: list[str] | None = None
+    token: OptionalStr
+    enabled: bool | None = None
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 # Components which reference other components, alphabetical
 
 
 class User(ModelWithRequiredID):
-    company_id: str | None
-    email_address: str | None
-    status: Literal["active", "deleted"] | None
-    first_name: str | None
-    last_name: str | None
-    profile_image: list[ImageURI] | None
-    phone_number: str | None
-    created_at: int | None
-    updated_at: int | None
-    user_url: str | None
+    company_id: OptionalStr
+    email_address: OptionalStr
+    status: Literal["active", "deleted"] | None = None
+    first_name: OptionalStr
+    last_name: OptionalStr
+    profile_image: list[ImageURI] | None = None
+    phone_number: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
+    user_url: OptionalStr
 
 
 # Rest of the components which reference other components, alphabetical
@@ -143,39 +155,36 @@ class User(ModelWithRequiredID):
 
 class Company(ModelWithRequiredID):
     name: str
-    status: Literal["active", "cancelled", "deleted"] | None
-    address: Address | None
-    logo: list[ImageURI] | None
+    status: Literal["active", "cancelled", "deleted"] | None = None
+    address: Address | None = None
+    logo: list[ImageURI] | None = None
 
 
 class Group(ModelWithRequiredID):
-    company_id: str | None
-    name: str | None
-    users: list[User] | None
-    status: Literal["active", "deleted"] | None
-    group_url: str | None
-    created_at: int | None
-    updated_at: int | None
+    company_id: OptionalStr
+    name: OptionalStr
+    users: list[User] | None = None
+    status: Literal["active", "deleted"] | None = None
+    group_url: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
 
 class Photo(ModelWithRequiredID):
-    company_id: str | None
-    creator_id: str | None
-    creator_type: str | None
-    creator_name: str | None
-    project_id: str | None
-    processing_status: (
-        Literal["pending", "processing", "processed", "processing_error", "duplicate"]
-        | None
-    )
-    coordinates: list[Coordinate] | None
-    urls: list[ImageURI] | None
-    hash: str | None
-    internal: bool | None
-    photo_url: str | None
-    captured_at: int | None
-    created_at: int | None
-    updated_at: int | None
+    company_id: OptionalStr
+    creator_id: OptionalStr
+    creator_type: OptionalStr
+    creator_name: OptionalStr
+    project_id: OptionalStr
+    processing_status: Literal["pending", "processing", "processed", "processing_error", "duplicate"] | None = None  # fmt: skip
+    coordinates: list[Coordinate] | None = None
+    urls: list[ImageURI] | None = None
+    hash: OptionalStr
+    internal: bool | None = None
+    photo_url: OptionalStr
+    captured_at: OptionalInt
+    created_at: OptionalInt
+    updated_at: OptionalInt
 
     class Config:
         assignment_aliases = {"uris": "urls"}
@@ -189,22 +198,22 @@ class Photo(ModelWithRequiredID):
 
 
 class Project(ModelWithRequiredID):
-    company_id: str | None
-    creator_id: str | None
-    creator_type: str | None
-    creator_name: str | None
-    status: Literal["active", "deleted"] | None
-    name: str | None
-    address: Address | None
-    coordinates: Coordinate | None
-    featured_image: list[ImageURI] | None
-    project_url: str | None
-    embedded_project_url: str | None
-    integrations: list[ProjectIntegration] | None
-    slug: str | None
-    public: bool | None
-    geofence: list[Coordinate] | None
-    primary_contact: ProjectContactResponse | None
-    notepad: str | None
-    created_at: int | None
-    updated_at: int | None
+    company_id: OptionalStr
+    creator_id: OptionalStr
+    creator_type: OptionalStr
+    creator_name: OptionalStr
+    status: Literal["active", "deleted"] | None = None
+    name: OptionalStr
+    address: Address | None = None
+    coordinates: Coordinate | None = None
+    featured_image: list[ImageURI] | None = None
+    project_url: OptionalStr
+    embedded_project_url: OptionalStr
+    integrations: list[ProjectIntegration] | None = None
+    slug: OptionalStr
+    public: bool | None = None
+    geofence: list[Coordinate] | None = None
+    primary_contact: ProjectContactResponse | None = None
+    notepad: OptionalStr
+    created_at: OptionalInt
+    updated_at: OptionalInt

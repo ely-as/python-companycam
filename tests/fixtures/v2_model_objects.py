@@ -9,14 +9,14 @@ class TestFile(io.BytesIO):
     name: str = "test.txt"
 
 
-TAG = models.Tag(
-    id="48892885",
-    company_id="8292212",
-    display_value="Front Side",
-    value="front side",
-    created_at=1152230608,
-    updated_at=1152230700,
-)
+TAG_KWARGS = {
+    "id": "48892885",
+    "company_id": "8292212",
+    "display_value": "Front Side",
+    "value": "front side",
+    "created_at": 1152230608,
+    "updated_at": 1152230700,
+}
 
 
 # Keys have same names as the keyword arguments in manager paths for easy lookup
@@ -113,7 +113,7 @@ KWARGS = {
         created_at=1152230608,
         updated_at=1152230400,
     ),
-    "label": TAG.copy(deep=True),
+    "label": models.Tag(**TAG_KWARGS),
     "photo": models.Photo(
         id="4782987471",
         company_id="8292212",
@@ -171,7 +171,7 @@ KWARGS = {
         created_at=1152230400,
         updated_at=1395792000,
     ),
-    "tag": TAG.copy(deep=True),
+    "tag": models.Tag(**TAG_KWARGS),
     "uri": "https://static.companycam.com/lambda/projects/94772883/photos/bHR0.jpg",
     "user": models.User(
         id="2789583992",
