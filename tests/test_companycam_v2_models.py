@@ -2,7 +2,6 @@ import pytest
 from pydantic import BaseModel
 
 import companycam
-from companycam.utils import model_json_schema
 
 from . import utils
 
@@ -27,7 +26,7 @@ def get_model_property_fields_from_property_name(
 ) -> dict:
     """Get property fields from pydantic model schema or skip test if not found."""
     try:
-        fields = model_json_schema(model)["properties"][property_name]
+        fields = model.model_json_schema()["properties"][property_name]
         # The following update pulls the 'type' or '$ref' key-value back into the
         # top-level dict, so output from V1 and V2 are compatible i.e.:
         # V1 : {'title': 'Id', 'type': 'string'}
@@ -49,7 +48,7 @@ def get_model_property_fields_from_property_name(
 def test_pydantic_model_name_matches_an_OpenAPI_component(
     name: str, model: type[BaseModel]
 ) -> None:
-    assert model_json_schema(model)["title"] in OPENAPI.component_schemas
+    assert model.model_json_schema()["title"] in OPENAPI.component_schemas
 
 
 @pytest.mark.parametrize("component_name", OPENAPI.component_schemas)
@@ -68,7 +67,7 @@ def test_required_OpenAPI_properties_are_required_in_pydantic_model_except_for_i
     component_name: str, required: list[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
-    model_required = model_json_schema(model).get("required", [])
+    model_required = model.model_json_schema().get("required", [])
     if "id" in required:
         required.remove("id")
     assert required == model_required
@@ -85,7 +84,7 @@ def test_pydantic_models_have_the_same_properties_as_OpenAPI_components(
     component_name: str, property_names: list[str]
 ) -> None:
     model = get_model_from_component_name(component_name)
-    assert property_names == list(model_json_schema(model)["properties"])
+    assert property_names == list(model.model_json_schema()["properties"])
 
 
 @pytest.mark.parametrize(

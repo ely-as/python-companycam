@@ -1,7 +1,7 @@
 from pytest_mock import MockerFixture
 
 from companycam import models
-from companycam.utils import PYDANTIC_VERSION, model_dump
+from companycam.utils import PYDANTIC_VERSION
 
 
 class ExampleModel(models.Model):
@@ -12,9 +12,6 @@ class ExampleModel(models.Model):
 
 class ExampleModelWithAlias(ExampleModel):
     class Config:
-        assignment_aliases = {"first_name": "name"}
-
-    class ConfigDict:
         assignment_aliases = {"first_name": "name"}
 
 
@@ -62,7 +59,7 @@ def test_Model_fields_with_assignment_aliases_can_be_set_by_alias() -> None:
 
 def test_Model_with_assignment_aliases_outputs_using_original_field_names() -> None:
     obj = ExampleModelWithAlias(first_name="Name", address="Address")  # type: ignore
-    dict_ = model_dump(obj)
+    dict_ = obj.model_dump()
     assert "name" in dict_
     assert "first_name" not in dict_
 
@@ -73,7 +70,7 @@ def test_Model_dict_defaults_exclude_none_to_True(mocker: MockerFixture) -> None
     else:
         mock = mocker.patch("pydantic.BaseModel.dict")
     obj = ExampleModel(name="Name", address="Address")
-    model_dump(obj)
+    obj.model_dump()
     assert "exclude_none" in mock.call_args.kwargs
     assert mock.call_args.kwargs["exclude_none"] is True
 
@@ -84,18 +81,18 @@ def test_Model_dict_can_set_exclude_none_to_False(mocker: MockerFixture) -> None
     else:
         mock = mocker.patch("pydantic.BaseModel.dict")
     obj = ExampleModel(name="Name", address="Address")
-    model_dump(obj, exclude_none=False)
+    obj.model_dump(exclude_none=False)
     assert "exclude_none" in mock.call_args.kwargs
     assert mock.call_args.kwargs["exclude_none"] is False
 
 
 def test_Model_dict_exclude_none_ensures_None_values_are_excluded() -> None:
     obj = ExampleModel(name="Name", address="Address")
-    dict_ = model_dump(obj)
+    dict_ = obj.model_dump()
     assert "email" not in dict_
 
 
 def test_Model_dict_exclude_none_can_be_overridden() -> None:
     obj = ExampleModel(name="Name", address="Address")
-    dict_ = model_dump(obj, exclude_none=False)
+    dict_ = obj.model_dump(exclude_none=False)
     assert "email" in dict_

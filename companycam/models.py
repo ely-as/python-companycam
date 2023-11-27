@@ -1,4 +1,4 @@
-import typing
+from typing import Any
 
 import pydantic
 
@@ -37,30 +37,31 @@ class Model(pydantic.BaseModel):
                 kwargs[field_name] = kwargs.pop(alias)
         super().__init__(*args, **kwargs)
 
-    def __getattribute__(self, name: str) -> typing.Any:
+    def __getattribute__(self, name: str) -> Any:
         assignment_aliases = super().__getattribute__("_assignment_aliases")
         if name in assignment_aliases:
             name = assignment_aliases[name]
         return super().__getattribute__(name)
 
-    def __setattr__(self, name: str, value: typing.Any) -> None:
+    def __setattr__(self, name: str, value: Any) -> None:
         assignment_aliases = super().__getattribute__("_assignment_aliases")
         if name in assignment_aliases:
             name = assignment_aliases[name]
         return super().__setattr__(name, value)
 
+    def model_dump(self, *, exclude_none: bool = True, **kwargs) -> dict[str, Any]:
+        if PYDANTIC_VERSION >= (2, 0, 0):
+            return super().model_dump(exclude_none=exclude_none, **kwargs)
+        return super().dict(exclude_none=exclude_none, **kwargs)
+
+    @classmethod
+    def model_json_schema(cls, *args, **kwargs) -> dict[str, Any]:
+        if PYDANTIC_VERSION >= (2, 0, 0):
+            return super().model_json_schema(*args, **kwargs)
+        return super().schema(*args, **kwargs)
+
     if PYDANTIC_VERSION >= (2, 0, 0):
         model_config = pydantic.ConfigDict(coerce_numbers_to_str=True)
-
-        def model_dump(
-            self, exclude_none: bool = True, **kwargs
-        ) -> dict[str, typing.Any]:
-            return super().model_dump(exclude_none=exclude_none, **kwargs)
-
-    else:
-
-        def dict(self, exclude_none: bool = True, **kwargs) -> dict[str, typing.Any]:
-            return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 class ModelWithRequiredID(Model):
