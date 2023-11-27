@@ -50,6 +50,7 @@ class Model(pydantic.BaseModel):
         return super().__setattr__(name, value)
 
     if PYDANTIC_VERSION >= (2, 0, 0):
+        model_config = pydantic.ConfigDict(coerce_numbers_to_str=True)
 
         def model_dump(
             self, exclude_none: bool = True, **kwargs
